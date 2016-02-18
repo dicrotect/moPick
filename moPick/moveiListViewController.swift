@@ -6,30 +6,36 @@
 //  Copyright © 2016年 kensuke takakura. All rights reserved.
 //
 
+//テーブルview
+//見たいリストと見たリストを分ける
+//coreデータから表示する映画タイトル,見たフラグを取得
+
 import UIKit
 
 class moveiListViewController: UIViewController {
 
+    
+    var appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    var userName:String = ""
     override func viewDidLoad() {
+        var userName = appDelegate.userName
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        var userName = appDelegate.userName
+        print(userName)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    @IBAction func returnGenreBtn(sender: UIButton) {
     }
-    */
+    
+    
+
 
 }

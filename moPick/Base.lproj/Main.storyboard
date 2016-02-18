@@ -1,25 +1,260 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Jvo-9J-EXc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="moPick" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="moPick" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="68d-eE-P4D">
+                                <rect key="frame" x="99" y="89" width="122" height="28"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="34"/>
+                                <color key="textColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XKw-t4-8f5">
+                                <rect key="frame" x="0.0" y="398" width="320" height="41"/>
+                                <color key="backgroundColor" red="1" green="0.76069166740000005" blue="0.71321822010000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="ENTER">
+                                    <color key="titleColor" red="1" green="0.4714011474" blue="0.26398909329999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="resiterName:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OhM-Fr-cwW"/>
+                                    <segue destination="vLW-GL-Ev9" kind="show" identifier="" id="TYu-zp-82f"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S1h-yO-j3T">
+                                <rect key="frame" x="81" y="307" width="173" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="returnText:" destination="BYZ-38-t0r" eventType="editingDidEndOnExit" id="I8b-f4-LBh"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="djU-ru-vI3" appends="YES" id="oqr-re-kUu"/>
+                        </connections>
                     </view>
+                    <navigationItem key="navigationItem" id="tYd-hh-5ME"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="enterBtn" destination="XKw-t4-8f5" id="zeg-Yd-Ymp"/>
+                        <outlet property="nameArea" destination="S1h-yO-j3T" id="Yxh-QS-U9q"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="djU-ru-vI3">
+                    <connections>
+                        <action selector="tapScreen:" destination="BYZ-38-t0r" id="9gE-2z-joW"/>
+                        <outlet property="delegate" destination="8bC-Xf-vdC" id="nMl-Io-7ci"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
+            <point key="canvasLocation" x="603" y="273"/>
+        </scene>
+        <!--Swipe Movie View Controller-->
+        <scene sceneID="TAB-nf-A08">
+            <objects>
+                <viewController id="rZn-x3-3gm" customClass="swipeMovieViewController" customModule="moPick" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7sA-cF-JMS"/>
+                        <viewControllerLayoutGuide type="bottom" id="8e8-Xt-epm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hwh-t0-e2Z">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="LIKE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ivQ-Lh-Ygf">
+                                <rect key="frame" x="36" y="89" width="48" height="21"/>
+                                <color key="backgroundColor" red="1" green="0.4714011474" blue="0.26398909329999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Later" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SrY-AM-rGM">
+                                <rect key="frame" x="214" y="89" width="56" height="21"/>
+                                <color key="backgroundColor" red="0.1647058874" green="0.9215686917" blue="0.98039221759999995" alpha="1" colorSpace="deviceRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hh7-5i-cqU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="763" y="997"/>
+        </scene>
+        <!--Movei List View Controller-->
+        <scene sceneID="EEG-tA-SuJ">
+            <objects>
+                <viewController id="TQM-zz-hap" customClass="moveiListViewController" customModule="moPick" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Y5t-ef-NOd"/>
+                        <viewControllerLayoutGuide type="bottom" id="8mo-N4-nor"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="He8-7Q-8ea">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zUF-9l-47i">
+                                <rect key="frame" x="208" y="98" width="99" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.4714011474" blue="0.26398909329999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="映画を選ぶ">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="returnGenreBtn:" destination="TQM-zz-hap" eventType="touchUpInside" id="m3p-BV-gYr"/>
+                                    <segue destination="vLW-GL-Ev9" kind="show" id="0Lg-O5-owS"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OZX-q6-flg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1114" y="997"/>
+        </scene>
+        <!--Choose Genre View Controller-->
+        <scene sceneID="BRQ-6f-vuC">
+            <objects>
+                <viewController id="vLW-GL-Ev9" customClass="chooseGenreViewController" customModule="moPick" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8WB-i8-kQX"/>
+                        <viewControllerLayoutGuide type="bottom" id="KXj-Mq-m9D"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="FUF-eO-7a5">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oAx-tL-gQx">
+                                <rect key="frame" x="0.0" y="518" width="165" height="30"/>
+                                <color key="backgroundColor" red="0.1339609514" green="0.56335558919999995" blue="0.99266098479999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="TOPへ">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="Jvo-9J-EXc" kind="show" id="2jz-9z-YBX"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="en0-Cm-6RV">
+                                <rect key="frame" x="164" y="518" width="156" height="30"/>
+                                <color key="backgroundColor" red="0.20462290720000001" green="0.66094539139999997" blue="0.21205055340000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="映画リストへ">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="TQM-zz-hap" kind="show" id="SgI-Fb-MsF"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="19H-8E-dBm">
+                                <rect key="frame" x="0.0" y="283" width="320" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="感動できる映画が見たい">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="chooseEmotion:" destination="vLW-GL-Ev9" eventType="touchUpInside" id="Ose-7O-arg"/>
+                                    <segue destination="rZn-x3-3gm" kind="show" id="WPW-cP-F0G"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s1k-hJ-5gd">
+                                <rect key="frame" x="0.0" y="253" width="320" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.43529412150382996" blue="0.81176471710205078" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="素敵な恋愛映画が見たい">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="chooseLove:" destination="vLW-GL-Ev9" eventType="touchUpInside" id="xPM-Pm-Unw"/>
+                                    <segue destination="rZn-x3-3gm" kind="show" id="dDk-ek-hmp"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zxK-ia-x2b">
+                                <rect key="frame" x="0.0" y="314" width="320" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.50196081399917603" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="わくわく大冒険の映画が見たい">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="chooseAdventure:" destination="vLW-GL-Ev9" eventType="touchUpInside" id="4Mw-fO-V2Z"/>
+                                    <segue destination="rZn-x3-3gm" kind="show" id="g04-Ng-3Oc"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H5j-SL-plB">
+                                <rect key="frame" x="0.0" y="344" width="320" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.80000001192092896" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="ファンタジーの世界へ">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="chooseFantasy:" destination="vLW-GL-Ev9" eventType="touchUpInside" id="bRL-p4-GmY"/>
+                                    <segue destination="rZn-x3-3gm" kind="show" id="xuk-4N-MrK"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="userName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zCE-WH-a0G">
+                                <rect key="frame" x="120" y="96" width="79" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="今日の気分は？" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TQ2-vi-lhz">
+                                <rect key="frame" x="38" y="151" width="245" height="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="userlabel" destination="zCE-WH-a0G" id="yId-tf-URH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cj0-aF-Hgt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1114" y="339"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="hhg-jB-Hb1">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Jvo-9J-EXc" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="B9E-Gx-XZJ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="8KN-ct-C48"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lP4-1m-CAf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="243" y="339"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="TYu-zp-82f"/>
+        <segue reference="xuk-4N-MrK"/>
+    </inferredMetricsTieBreakers>
 </document>
