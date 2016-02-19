@@ -100,7 +100,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hh7-5i-cqU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="763" y="997"/>
+            <point key="canvasLocation" x="1114" y="1195"/>
         </scene>
         <!--Movei List View Controller-->
         <scene sceneID="EEG-tA-SuJ">
@@ -132,7 +132,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OZX-q6-flg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1114" y="997"/>
+            <point key="canvasLocation" x="1490" y="1146"/>
         </scene>
         <!--Choose Genre View Controller-->
         <scene sceneID="BRQ-6f-vuC">
@@ -174,7 +174,7 @@
                                 </state>
                                 <connections>
                                     <action selector="chooseEmotion:" destination="vLW-GL-Ev9" eventType="touchUpInside" id="Ose-7O-arg"/>
-                                    <segue destination="rZn-x3-3gm" kind="show" id="WPW-cP-F0G"/>
+                                    <segue destination="rZn-x3-3gm" kind="show" identifier="emotionSegue" id="WPW-cP-F0G"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s1k-hJ-5gd">
@@ -185,7 +185,7 @@
                                 </state>
                                 <connections>
                                     <action selector="chooseLove:" destination="vLW-GL-Ev9" eventType="touchUpInside" id="xPM-Pm-Unw"/>
-                                    <segue destination="rZn-x3-3gm" kind="show" id="dDk-ek-hmp"/>
+                                    <segue destination="rZn-x3-3gm" kind="show" identifier="loveSegue" id="dDk-ek-hmp"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zxK-ia-x2b">
@@ -196,7 +196,7 @@
                                 </state>
                                 <connections>
                                     <action selector="chooseAdventure:" destination="vLW-GL-Ev9" eventType="touchUpInside" id="4Mw-fO-V2Z"/>
-                                    <segue destination="rZn-x3-3gm" kind="show" id="g04-Ng-3Oc"/>
+                                    <segue destination="rZn-x3-3gm" kind="show" identifier="adventureSegue" id="g04-Ng-3Oc"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H5j-SL-plB">
@@ -207,7 +207,7 @@
                                 </state>
                                 <connections>
                                     <action selector="chooseFantasy:" destination="vLW-GL-Ev9" eventType="touchUpInside" id="bRL-p4-GmY"/>
-                                    <segue destination="rZn-x3-3gm" kind="show" id="xuk-4N-MrK"/>
+                                    <segue destination="rZn-x3-3gm" kind="show" identifier="fantasySegue" id="xuk-4N-MrK"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="userName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zCE-WH-a0G">
@@ -254,7 +254,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="TYu-zp-82f"/>
-        <segue reference="xuk-4N-MrK"/>
+        <segue reference="0Lg-O5-owS"/>
+        <segue reference="dDk-ek-hmp"/>
     </inferredMetricsTieBreakers>
 </document>

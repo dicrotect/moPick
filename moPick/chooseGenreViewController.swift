@@ -11,6 +11,7 @@ import UIKit
 class chooseGenreViewController: UIViewController {
 
     @IBOutlet weak var userlabel: UILabel!
+    var chooseGenre = Int()
     
     var appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
@@ -26,16 +27,25 @@ class chooseGenreViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
+
+    @IBAction func chooseFantasy(sender: UIButton) {
+        chooseGenre = 0
+    }
     @IBAction func chooseLove(sender: UIButton) {
+        chooseGenre = 1
+    }
+    @IBAction func chooseAdventure(sender: UIButton) {
+        chooseGenre = 2
     }
     @IBAction func chooseEmotion(sender: UIButton) {
+        chooseGenre = 3
     }
     
-    @IBAction func chooseAdventure(sender: UIButton) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        var sendData = segue.destinationViewController as! swipeMovieViewController
+        sendData.chosenGenre = chooseGenre
     }
-    @IBAction func chooseFantasy(sender: UIButton) {
-    }
+    
     
 
 }
