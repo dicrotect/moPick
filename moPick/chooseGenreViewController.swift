@@ -29,22 +29,23 @@ class chooseGenreViewController: UIViewController {
     }
 
     @IBAction func chooseFantasy(sender: UIButton) {
-        chooseGenre = 0
+        var appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.chosenGenre = 0
+       
     }
     @IBAction func chooseLove(sender: UIButton) {
-        chooseGenre = 1
+        var appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.chosenGenre = 1
     }
     @IBAction func chooseAdventure(sender: UIButton) {
-        chooseGenre = 2
+        var appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.chosenGenre = 2
     }
     @IBAction func chooseEmotion(sender: UIButton) {
-        chooseGenre = 3
+        var appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.chosenGenre = 3
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        var sendData = segue.destinationViewController as! swipeMovieViewController
-        sendData.chosenGenre = chooseGenre
-    }
     
     
 

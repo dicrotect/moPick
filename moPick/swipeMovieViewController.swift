@@ -19,13 +19,9 @@ import SwiftyJSON
 class swipeMovieViewController: UIViewController {
 
     
-    var chosenGenre = Int()
+   
     var swipeCount = 0
-    var photoURL = [
-        "http://up.gc-img.net/post_img_web/2013/03/a3a43755438b42d881929eefc7161191_0.jpeg",
-        "http://pic.prepics-cdn.com/pib1298076039/5731792_218x291.gif",
-        "http://omosoku.com/wp-content/uploads/misawa-225x300.gif"
-    ]
+    var photoURL = "theater.jpg"
 
     var userName:String = ""
     var appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -34,32 +30,36 @@ class swipeMovieViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        print(chosenGenre)
-        
         var userName = appDelegate.userName
-        print(userName)
-        
-        let swipeView1 = createSwipeView(photoURL[0])
+        let swipeView1 = createSwipeView(photoURL)
         self.view.addSubview(swipeView1)
-        
-        let swipeView2 = createSwipeView(photoURL[1])
-        self.view.insertSubview(swipeView2, belowSubview: swipeView1)
-        
-        let swipeView3 = createSwipeView(photoURL[2])
-        self.view.insertSubview(swipeView3, belowSubview: swipeView2)
-        
-        let swipeView4 = createSwipeView(photoURL[2])
-        self.view.insertSubview(swipeView4, belowSubview: swipeView2)
-        
-        let swipeView5 = createSwipeView(photoURL[2])
-        self.view.insertSubview(swipeView5, belowSubview: swipeView2)
-
-
+        let swipeView2 = createSwipeView(photoURL)
+        self.view.addSubview(swipeView2)
+        let swipeView3 = createSwipeView(photoURL)
+        self.view.addSubview(swipeView3)
+        let swipeView4 = createSwipeView(photoURL)
+        self.view.addSubview(swipeView4)
+        let swipeView5 = createSwipeView(photoURL)
+        self.view.addSubview(swipeView5)
     }
+    @IBAction func moreMovie(sender: UIButton) {
+        var userName = appDelegate.userName
+        let swipeView1 = createSwipeView(photoURL)
+        self.view.addSubview(swipeView1)
+        let swipeView2 = createSwipeView(photoURL)
+        self.view.addSubview(swipeView2)
+        let swipeView3 = createSwipeView(photoURL)
+        self.view.addSubview(swipeView3)
+        let swipeView4 = createSwipeView(photoURL)
+        self.view.addSubview(swipeView4)
+        let swipeView5 = createSwipeView(photoURL)
+        self.view.addSubview(swipeView5)
+    }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func createSwipeView(url: String) -> UIView {
@@ -71,10 +71,10 @@ class swipeMovieViewController: UIViewController {
         
         let swipeView = MDCSwipeToChooseView(
             frame: CGRect(
-                x: 100,
-                y: 130,
-                width: 100,
-                height: 100
+                x: 90,
+                y: 170,
+                width: 140,
+                height: 140
             ),
             options: options
         )
@@ -88,6 +88,8 @@ class swipeMovieViewController: UIViewController {
         
         //取得したいjsonデータを指定
         //ファンタジー/恋愛/冒険/感動
+        var chosenGenre = appDelegate.chosenGenre
+        
         var genreURL =
         ["%E9%AD%94%E6%B3%95", "%E5%88%9D%E6%81%8B", "%E5%A4%A7%E5%86%92%E9%99%BA","%E6%84%9F%E5%8B%95" ]
         let jsonURL = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/wa/wsSearch?term=\(genreURL[chosenGenre])&media=movie&entity=movie&attribute=descriptionTerm&country=jp"
@@ -107,6 +109,11 @@ class swipeMovieViewController: UIViewController {
         return swipeView
     }
     
+    @IBAction func tapBtn(sender: UIButton) {
+        alertUp()
+    }
+    
+    
     func view(view: UIView!, wasChosenWithDirection direction: MDCSwipeDirection) {
         if (direction == MDCSwipeDirection.Left) {
             print("Later")
@@ -115,6 +122,39 @@ class swipeMovieViewController: UIViewController {
         }
         swipeCount++
     }
+    
+    func alertUp() {
+      
+        let alert = UIAlertController(
+            title: "選んだ映画はこちらです",
+            message: "映画を選びました!",
+            preferredStyle: .Alert
+        )
+        
+        alert.addAction(UIAlertAction(
+            title: "ジャンルを変更",
+            style: .Default,
+            handler: {action in self.backToCooseGenre()}
+            ))
+        
+        alert.addAction(UIAlertAction(
+            title: "リストで確認",
+            style: .Default,
+            handler: {action in self.moveMovieList()}
+            ))
+            
+        presentViewController(alert, animated: true,completion:nil)
+        
+    }
+    
+    func moveMovieList() {
+        self.performSegueWithIdentifier("showMovieList", sender: nil)
+    }
+    func backToCooseGenre() {
+        self.performSegueWithIdentifier("backToChooseGenre", sender: nil)
+    }
+
+  
 
     
 
