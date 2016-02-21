@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		466919641C79ABA7006E5CC7 /* muchMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466919631C79ABA7006E5CC7 /* muchMovie.swift */; };
+		466919661C79ABB0006E5CC7 /* muchMovie+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466919651C79ABB0006E5CC7 /* muchMovie+CoreDataProperties.swift */; };
 		466D09A01C7569300041FD3D /* chooseGenreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466D099F1C7569300041FD3D /* chooseGenreViewController.swift */; };
 		466D09A21C7569590041FD3D /* swipeMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466D09A11C7569590041FD3D /* swipeMovieViewController.swift */; };
 		466D09A41C75696C0041FD3D /* moveiListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466D09A31C75696C0041FD3D /* moveiListViewController.swift */; };
@@ -42,6 +44,8 @@
 /* Begin PBXFileReference section */
 		1938B9723FFA759348398EDF /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B2CC3DAA81220580A37D0CF /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		466919631C79ABA7006E5CC7 /* muchMovie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = muchMovie.swift; sourceTree = "<group>"; };
+		466919651C79ABB0006E5CC7 /* muchMovie+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "muchMovie+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		466D099F1C7569300041FD3D /* chooseGenreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = chooseGenreViewController.swift; sourceTree = "<group>"; };
 		466D09A11C7569590041FD3D /* swipeMovieViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = swipeMovieViewController.swift; sourceTree = "<group>"; };
 		466D09A31C75696C0041FD3D /* moveiListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = moveiListViewController.swift; sourceTree = "<group>"; };
@@ -122,6 +126,8 @@
 		4679C0381C730CF4002D1389 /* moPick */ = {
 			isa = PBXGroup;
 			children = (
+				466919651C79ABB0006E5CC7 /* muchMovie+CoreDataProperties.swift */,
+				466919631C79ABA7006E5CC7 /* muchMovie.swift */,
 				4679C0391C730CF4002D1389 /* AppDelegate.swift */,
 				4679C03B1C730CF4002D1389 /* ViewController.swift */,
 				4674298E1C78336200A8C352 /* theater.jpg */,
@@ -348,7 +354,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4679C03C1C730CF4002D1389 /* ViewController.swift in Sources */,
+				466919661C79ABB0006E5CC7 /* muchMovie+CoreDataProperties.swift in Sources */,
 				4679C03A1C730CF4002D1389 /* AppDelegate.swift in Sources */,
+				466919641C79ABA7006E5CC7 /* muchMovie.swift in Sources */,
 				466D09A21C7569590041FD3D /* swipeMovieViewController.swift in Sources */,
 				466D09A41C75696C0041FD3D /* moveiListViewController.swift in Sources */,
 				4679C0421C730CF4002D1389 /* moPick.xcdatamodeld in Sources */,

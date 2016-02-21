@@ -93,16 +93,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ylw-cK-aRp">
-                                <rect key="frame" x="14" y="460" width="306" height="30"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="映画を選ぶのをやめる">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="tapBtn:" destination="rZn-x3-3gm" eventType="touchUpInside" id="2eJ-Nd-0DS"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nBx-nf-kfJ">
                                 <rect key="frame" x="132" y="188" width="36" height="30"/>
                                 <color key="backgroundColor" red="0.1647058874" green="0.9215686917" blue="0.98039221759999995" alpha="1" colorSpace="deviceRGB"/>
@@ -111,6 +101,16 @@
                                 </state>
                                 <connections>
                                     <action selector="moreMovie:" destination="rZn-x3-3gm" eventType="touchUpInside" id="GKp-VX-TFV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ylw-cK-aRp">
+                                <rect key="frame" x="-3" y="465" width="323" height="30"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="映画を選ぶのをやめる">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="tapBtn:" destination="rZn-x3-3gm" eventType="touchUpInside" id="2eJ-Nd-0DS"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -124,7 +124,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hh7-5i-cqU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1114" y="1195"/>
+            <point key="canvasLocation" x="802" y="1251"/>
         </scene>
         <!--Movei List View Controller-->
         <scene sceneID="EEG-tA-SuJ">
@@ -149,14 +149,25 @@
                                     <segue destination="vLW-GL-Ev9" kind="show" id="0Lg-O5-owS"/>
                                 </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MhH-Yp-vcE">
+                                <rect key="frame" x="0.0" y="136" width="320" height="432"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="TQM-zz-hap" id="T4d-R2-HlH"/>
+                                    <outlet property="delegate" destination="TQM-zz-hap" id="GwI-4j-hq4"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="movieLIstTable" destination="MhH-Yp-vcE" id="q6d-QP-EoS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OZX-q6-flg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1490" y="1217"/>
+            <point key="canvasLocation" x="1590" y="1245"/>
         </scene>
         <!--Choose Genre View Controller-->
         <scene sceneID="BRQ-6f-vuC">
@@ -256,7 +267,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cj0-aF-Hgt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1114" y="339"/>
+            <point key="canvasLocation" x="1406" y="329"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hhg-jB-Hb1">
@@ -274,11 +285,11 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lP4-1m-CAf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="243" y="339"/>
+            <point key="canvasLocation" x="-253" y="345"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="TYu-zp-82f"/>
+        <segue reference="kJd-4n-gS4"/>
         <segue reference="dDk-ek-hmp"/>
         <segue reference="D5R-N8-wAs"/>
     </inferredMetricsTieBreakers>
