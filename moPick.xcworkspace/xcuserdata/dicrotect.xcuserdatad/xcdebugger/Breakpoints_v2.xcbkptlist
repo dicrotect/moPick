@@ -2,4 +2,69 @@
 <Bucket
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "moPick/moveiListViewController.swift"
+            timestampString = "477815791.404105"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "moveiListViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "moPick.moveiListViewController.__deallocating_deinit"
+                  moduleName = "moPick"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dicrotect/Desktop/iOS201601/moPick/moPick/moveiListViewController.swift"
+                  timestampString = "477815791.418572"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "19">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "moPick.moveiListViewController.init (moPick.moveiListViewController.Type)(nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.NSBundle&gt;) -&gt; moPick.moveiListViewController"
+                  moduleName = "moPick"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dicrotect/Desktop/iOS201601/moPick/moPick/moveiListViewController.swift"
+                  timestampString = "477815791.419242"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "70">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "moPick.moveiListViewController.init (moPick.moveiListViewController.Type)(coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;moPick.moveiListViewController&gt;"
+                  moduleName = "moPick"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dicrotect/Desktop/iOS201601/moPick/moPick/moveiListViewController.swift"
+                  timestampString = "477815791.419361"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "30">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

@@ -24,14 +24,12 @@ class moveiListViewController: UIViewController {
     var user = "user"
     var movie = "movie"
     var flag = "flag"
+    
     override func viewDidLoad() {
-        var userName = appDelegate.userName
         super.viewDidLoad()
     }
     
     override func viewWillAppear(animated: Bool) {
-        var userName = appDelegate.userName
-        readData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,19 +41,22 @@ class moveiListViewController: UIViewController {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return testText.count
+
+        //return testText.count
+        return readData().count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = UITableViewCell(style: .Default, reuseIdentifier: "myCell")
-        cell.textLabel?.text = testText[indexPath.row]
+        cell.textLabel?.text = readData()[indexPath.row] as! String
         cell.textLabel?.textColor = UIColor.blueColor()
         return cell
     }
     
     func readData() -> NSArray{
-        var ret:[String] = []
+        var movieDataList:[String] = []
         let appDelegate: AppDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
+        var thisUserName = appDelegate.userName
         let context: NSManagedObjectContext = appDelegate.managedObjectContext
         let request = NSFetchRequest(entityName: entityName)
         request.returnsObjectsAsFaults = false
@@ -67,23 +68,16 @@ class moveiListViewController: UIViewController {
                     let obj = results[i] as! NSManagedObject
                     let userName = obj.valueForKey(user) as! String
                     //ユーザネーム指定してそのユーザの選んだ映画タイトルを取得
-                    if userName == "kkkkk"{
+                    if userName == thisUserName{
                         let movieName = obj.valueForKey(movie) as! String
-                        let setFlag = obj.valueForKey(flag) as! Int
-                        ret.append(movieName)
+                        movieDataList.append(movieName)
                     }
                 }
-                print(ret)
-                //myTexField.text = ret[0] as! String
             }
         } catch let error as NSError {
             // エラー処理
             print("READ ERROR:\(error.localizedDescription)")
         }
-        return ret
+        return movieDataList
     }
-
-    
-    
-
 }
