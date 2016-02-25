@@ -25,13 +25,18 @@ class moveiListViewController: UIViewController {
     var user = "user"
     var movie = "movie"
     var flag = "flag"
+    var url = "imgURL"
+    var getCoreData:[NSDictionary] = []
+    var dataList:[NSDictionary] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     override func viewWillAppear(animated: Bool) {
+       dataList = readData() as! [NSDictionary]
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -42,21 +47,24 @@ class moveiListViewController: UIViewController {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return readData().count
+        return dataList.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var movieTitle = readData()[indexPath.row] as! String
+        var movieTitle = dataList[indexPath.row]["title"] as! String
         var cell = UITableViewCell(style: .Default, reuseIdentifier: "myCell")
         cell.textLabel?.text = movieTitle
         cell.textLabel?.textColor = UIColor.blueColor()
-        cell.imageView?.image = UIImage(named: ("theater.jpg" as? String)!)
-        print(getJson())
+        let jsonURL = dataList[indexPath.row]["image"] as! String
+        let imageURL = NSURL(string:jsonURL as! String)
+        let imageData = NSData(contentsOfURL:imageURL!)
+        let image = UIImage(data: imageData!)
+        cell.imageView?.image = image
+    
         return cell
     }
     
     func readData() -> NSArray{
-        var movieDataList:[String] = []
         let appDelegate: AppDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
         var thisUserName = appDelegate.userName
         let context: NSManagedObjectContext = appDelegate.managedObjectContext
@@ -71,31 +79,21 @@ class moveiListViewController: UIViewController {
                     let userName = obj.valueForKey(user) as! String
                     if userName == thisUserName{
                         let movieName = obj.valueForKey(movie) as! String
-                        movieDataList.append(movieName)
+                        let imgURL = obj.valueForKey(url) as! String
+                        var readCoreData:NSDictionary = [
+                            "title":movieName,
+                            "image":imgURL
+                        ]
+                        getCoreData.append(readCoreData)
                     }
+                    
                 }
             }
         } catch let error as NSError {
             print("READ ERROR:\(error.localizedDescription)")
         }
-        return movieDataList
+        return getCoreData
     }
     
-    func  getJson()->String {
-        
-        var movieImageURL = String()
-        let jsonURL = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/wa/wsSearch?term=%E3%83%81%E3%83%A3%E3%83%83%E3%83%94%E3%83%BC&media=movie&entity=movie&attribute=movieTerm&country=jp"
-       
-        Alamofire.request(.GET, jsonURL,parameters: nil, encoding: .JSON ).responseJSON{(response) in
-            if(response.result.isSuccess){
-                let json = JSON(response.result.value!)
-                movieImageURL = String(json["results"][0]["artworkUrl30"])
-                //print(movieImageURL+"だよ")
-            }
-        }
-        print(movieImageURL+"かな")
-        return movieImageURL
-        
-    }
     
 }
