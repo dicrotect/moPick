@@ -30,35 +30,20 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
     var user = "user"
     var movie =  "movie"
     var flag = "flag"
-    
+       
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     override func viewWillAppear(animated: Bool) {
-        let swipeView1 = createSwipeView(photoURL)
-        self.view.addSubview(swipeView1)
-        let swipeView2 = createSwipeView(photoURL)
-        self.view.insertSubview(swipeView2, aboveSubview: swipeView1)
-        let swipeView3 = createSwipeView(photoURL)
-        self.view.insertSubview(swipeView3, aboveSubview: swipeView2)
-        let swipeView4 = createSwipeView(photoURL)
-        self.view.insertSubview(swipeView4, aboveSubview: swipeView3)
-        let swipeView5 = createSwipeView(photoURL)
-        self.view.insertSubview(swipeView5, aboveSubview: swipeView4)
+        imageUp()
+        print(getJsonData())
+  
+        
     }
     @IBAction func moreMovie(sender: UIButton) {
-        let swipeView1 = createSwipeView(photoURL)
-        self.view.addSubview(swipeView1)
-        let swipeView2 = createSwipeView(photoURL)
-        self.view.insertSubview(swipeView2, aboveSubview: swipeView1)
-        let swipeView3 = createSwipeView(photoURL)
-        self.view.insertSubview(swipeView3, aboveSubview: swipeView2)
-        let swipeView4 = createSwipeView(photoURL)
-        self.view.insertSubview(swipeView4, aboveSubview: swipeView3)
-        let swipeView5 = createSwipeView(photoURL)
-        self.view.insertSubview(swipeView5, aboveSubview: swipeView4)
+        imageUp()
     }
     
     
@@ -67,7 +52,38 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
         super.didReceiveMemoryWarning()
     }
     
-    func createSwipeView(url: String) -> UIView {
+    
+    @IBAction func tapBtn(sender: UIButton) {
+        alertUp()
+    }
+    
+    func imageUp(){
+//        let swipeView1 = createSwipeView(photoURL)
+//        self.view.addSubview(swipeView1)
+//        let swipeView2 = createSwipeView(photoURL)
+//        self.view.insertSubview(swipeView2, aboveSubview: swipeView1)
+//        let swipeView3 = createSwipeView(photoURL)
+//        self.view.insertSubview(swipeView3, aboveSubview: swipeView2)
+//        let swipeView4 = createSwipeView(photoURL)
+//        self.view.insertSubview(swipeView4, aboveSubview: swipeView3)
+//        let swipeView5 = createSwipeView(photoURL)
+//        self.view.insertSubview(swipeView5, aboveSubview: swipeView4)
+    }
+
+    
+    func view(view: UIView!, wasChosenWithDirection direction: MDCSwipeDirection) {
+        if (direction == MDCSwipeDirection.Left) {
+            print("Later")
+        } else {
+            print("Like")
+            var userName = appDelegate.userName
+            var movieTitle:String! = view.accessibilityValue
+            writeData(userName, txtMovie: movieTitle!)
+        }
+        swipeCount++
+    }
+    
+    func createSwipeView() -> UIView {
         let options = MDCSwipeToChooseViewOptions()
         options.delegate = self
         options.likedText = "Like"
@@ -84,55 +100,11 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
             ),
             options: options
         )
+        swipeView.imageView.image = UIImage(contentsOfFile: "theater.jpg")
         
-        let targetFirstInt = (arc4random() % 9)
-        let targetFirstString:String = String(targetFirstInt)
-        let targetSecondInt = (arc4random() % 5)
-        let targetSecondString:String = String(targetSecondInt)
-        let targetString = targetSecondString + targetFirstString
-        let targetInt:Int = Int(targetString)!
-        let offsetInt = (arc4random() % 4)
-        
-        //取得したいjsonデータを指定
-        //ファンタジー/恋愛/冒険/感動
-        var chosenGenre = appDelegate.chosenGenre
-        
-        var genreURL =
-        ["%E9%AD%94%E6%B3%95", "%E5%88%9D%E6%81%8B", "%E5%A4%A7%E5%86%92%E9%99%BA","%E6%84%9F%E5%8B%95" ]
-        let jsonURL = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/wa/wsSearch?term=\(genreURL[chosenGenre])&media=movie&entity=movie&attribute=descriptionTerm&offset=\(offsetInt)&country=jp"
-        
-        
-        Alamofire.request(.GET, jsonURL,parameters: nil, encoding: .JSON ).responseJSON{(response) in
-            if(response.result.isSuccess){
-                let json = JSON(response.result.value!)
-                let movieImageURL:String = String(json["results"][targetInt]["artworkUrl100"])
-                let movieTitle:String = String(json["results"][targetInt]["trackName"])
-                let imageURL = NSURL(string:movieImageURL as! String)
-                let imageData = NSData(contentsOfURL:imageURL!)
-                let image = UIImage(data: imageData!)
-                swipeView.imageView.image = UIImage(data: NSData(contentsOfURL: imageURL!)!)
-                swipeView.accessibilityValue = movieTitle
-            }
-        }
         return swipeView
-        }
-    
-    @IBAction func tapBtn(sender: UIButton) {
-        alertUp()
     }
-    
-    
-    func view(view: UIView!, wasChosenWithDirection direction: MDCSwipeDirection) {
-        if (direction == MDCSwipeDirection.Left) {
-            print("Later")
-        } else {
-            print("Like")
-            var userName = appDelegate.userName
-            var movieTitle:String! = view.accessibilityValue
-            writeData(userName, txtMovie: movieTitle!)
-        }
-        swipeCount++
-    }
+
     
     func alertUp() {
       
@@ -165,6 +137,7 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
         self.performSegueWithIdentifier("backToChooseGenre", sender: nil)
     }
     
+    
     func writeData(txtUser: String , txtMovie: String) -> Bool{
         //txtUser デリゲートで保存している名前
         //txtMovie いいねにした映画タイトル
@@ -196,10 +169,56 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
         }
         return ret
     }
-
-
-  
-
     
-
+    
+    func getJsonData()->NSArray {
+        
+        
+    //取得したいjsonデータを指定
+    //ファンタジー/恋愛/冒険/感動
+        var jsonArray: [NSDictionary] = []
+        var chosenGenre = appDelegate.chosenGenre
+      
+    
+        var genreURL =
+        ["%E9%AD%94%E6%B3%95", "%E5%88%9D%E6%81%8B", "%E5%A4%A7%E5%86%92%E9%99%BA","%E6%84%9F%E5%8B%95" ]
+        let jsonURL = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/wa/wsSearch?term=\(genreURL[chosenGenre])&media=movie&entity=movie&attribute=descriptionTerm&country=jp"
+       
+    
+        Alamofire.request(.GET, jsonURL,parameters: nil, encoding: .JSON ).responseJSON{(response) in
+            if(response.result.isSuccess){
+                let json = JSON(response.result.value!)
+                let movieImageURL:String = String(json["results"][self.getInt()]["artworkUrl100"])
+                let movieTitle:String = String(json["results"][self.getInt()]["trackName"])
+//                let imageURL = NSURL(string:movieImageURL as! String)
+//                let imageData = NSData(contentsOfURL:imageURL!)
+//                let image = UIImage(data: imageData!)
+                for var i=0;i<5; i++ {
+                    var readJson:NSDictionary = [
+                        "name":movieTitle,
+                        "image":movieImageURL
+                    ]
+                    //配列についか 今回は配列プラス辞書)
+                    jsonArray.append(readJson)
+                    
+                }
+                //print(jsonArray)
+            }
+        }
+       
+        return jsonArray
+        }
+    
+    
+    func getInt()->Int{
+        let targetFirstInt = (arc4random() % 9)
+        let targetFirstString:String = String(targetFirstInt)
+        let targetSecondInt = (arc4random() % 5)
+        let targetSecondString:String = String(targetSecondInt)
+        let targetString = targetSecondString + targetFirstString
+        let targetInt:Int = Int(targetString)!
+        let offsetInt = (arc4random() % 4)
+        return targetInt
+    }
+    
   }

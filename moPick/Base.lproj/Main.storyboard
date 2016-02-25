@@ -150,7 +150,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MhH-Yp-vcE">
-                                <rect key="frame" x="0.0" y="136" width="320" height="432"/>
+                                <rect key="frame" x="0.0" y="143" width="326" height="391"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="TQM-zz-hap" id="T4d-R2-HlH"/>
@@ -167,7 +167,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OZX-q6-flg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1590" y="1245"/>
+            <point key="canvasLocation" x="1485" y="1244"/>
         </scene>
         <!--Choose Genre View Controller-->
         <scene sceneID="BRQ-6f-vuC">
@@ -289,8 +289,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="kJd-4n-gS4"/>
         <segue reference="dDk-ek-hmp"/>
+        <segue reference="0Lg-O5-owS"/>
         <segue reference="D5R-N8-wAs"/>
     </inferredMetricsTieBreakers>
 </document>

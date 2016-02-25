@@ -12,12 +12,13 @@
 
 import UIKit
 import CoreData
+import Alamofire
+import SwiftyJSON
 
 class moveiListViewController: UIViewController {
 
     
     @IBOutlet weak var movieLIstTable: UITableView!
-    var testText = ["キックアス2","チャッピー","なんちゃって家族","インターステラー","リトルミスサンシャイン"]
     var appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     var userName:String = ""
     var entityName = "MuchMovie"
@@ -41,15 +42,16 @@ class moveiListViewController: UIViewController {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        //return testText.count
         return readData().count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var movieTitle = readData()[indexPath.row] as! String
         var cell = UITableViewCell(style: .Default, reuseIdentifier: "myCell")
-        cell.textLabel?.text = readData()[indexPath.row] as! String
+        cell.textLabel?.text = movieTitle
         cell.textLabel?.textColor = UIColor.blueColor()
+        cell.imageView?.image = UIImage(named: ("theater.jpg" as? String)!)
+        print(getJson())
         return cell
     }
     
@@ -67,7 +69,6 @@ class moveiListViewController: UIViewController {
                 for i in 0..<results.count {
                     let obj = results[i] as! NSManagedObject
                     let userName = obj.valueForKey(user) as! String
-                    //ユーザネーム指定してそのユーザの選んだ映画タイトルを取得
                     if userName == thisUserName{
                         let movieName = obj.valueForKey(movie) as! String
                         movieDataList.append(movieName)
@@ -75,9 +76,26 @@ class moveiListViewController: UIViewController {
                 }
             }
         } catch let error as NSError {
-            // エラー処理
             print("READ ERROR:\(error.localizedDescription)")
         }
         return movieDataList
     }
+    
+    func  getJson()->String {
+        
+        var movieImageURL = String()
+        let jsonURL = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/wa/wsSearch?term=%E3%83%81%E3%83%A3%E3%83%83%E3%83%94%E3%83%BC&media=movie&entity=movie&attribute=movieTerm&country=jp"
+       
+        Alamofire.request(.GET, jsonURL,parameters: nil, encoding: .JSON ).responseJSON{(response) in
+            if(response.result.isSuccess){
+                let json = JSON(response.result.value!)
+                movieImageURL = String(json["results"][0]["artworkUrl30"])
+                //print(movieImageURL+"だよ")
+            }
+        }
+        print(movieImageURL+"かな")
+        return movieImageURL
+        
+    }
+    
 }
