@@ -32,6 +32,7 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
     var movie =  "movie"
     var flag = "flag"
     var url = "imgURL"
+    var readJsonDataDict:NSDictionary = ["":""]
     var readJsonDataArray:[NSDictionary] = []
     
     override func viewDidLoad() {
@@ -115,16 +116,22 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
                 let imageData = NSData(contentsOfURL:imageURL!)
                 let image = UIImage(data: imageData!)
                 swipeView.imageView.image = UIImage(data: NSData(contentsOfURL: imageURL!)!)
-                var readJson:NSDictionary = [
+                swipeView.tag = self.swipeListCount
+                
+                self.readJsonDataDict = [
                     "num":self.swipeListCount,
                     "name":movieTitle,
                     "image":movieImageURL
                 ]
+                
+                //この番号とnumが一致するものを探す
                 self.swipeListCount++
-                self.readJsonDataArray.insert(readJson,atIndex: 0)
+                self.readJsonDataArray.append(self.readJsonDataDict)
+                
+                
             }
-             print(self.readJsonDataArray)
         }
+        
         return swipeView
     }
     
@@ -135,17 +142,27 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
     
     func view(view: UIView!, wasChosenWithDirection direction: MDCSwipeDirection) {
         
-       // readJsonDataArray.sortInPlace({ num;$0 < $1 })
         
         if (direction == MDCSwipeDirection.Left) {
             print("Later")
+            for var i = 0; i < self.readJsonDataArray.count; i++ {
+                if view.tag == self.readJsonDataArray[i]["num"] as! Int {
+                    print(self.readJsonDataArray[i])
+                }
+            }
 
         } else {
             print("Like")
             var userName = appDelegate.userName
-            var movieTitle = readJsonDataArray[swipeCount ]["name"] as! String
-            var movieImgURL = readJsonDataArray[swipeCount ] ["image"] as! String
-            writeData(userName, txtMovie: movieTitle, txtURL: movieImgURL )
+            print("Later")
+            for var i = 0; i < self.readJsonDataArray.count; i++ {
+                if view.tag == self.readJsonDataArray[i]["num"] as! Int {
+                    var movieTitle = self.readJsonDataArray[i]["name"] as! String
+                    var movieImgURL = self.readJsonDataArray[i]["image"] as! String
+                    writeData(userName, txtMovie: movieTitle, txtURL: movieImgURL )
+                }
+            }
+            
         }
         swipeCount++
     }
