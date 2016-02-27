@@ -42,6 +42,7 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
     
     override func viewWillAppear(animated: Bool) {
         
+        
         let swipeView1 = self.createSwipeView(self.photoURL)
         view.addSubview(swipeView1)
         let swipeView2 = self.createSwipeView(photoURL)
@@ -52,10 +53,6 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
         view.insertSubview(swipeView4, aboveSubview: swipeView3)
         let swipeView5 = self.createSwipeView(photoURL)
         view.insertSubview(swipeView5, aboveSubview: swipeView4)
-        
-        
-        
-        
         
     }
     @IBAction func moreMovie(sender: UIButton) {
@@ -108,40 +105,35 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
         var chosenGenre = appDelegate.chosenGenre
         swipeView.hidden = true
         SwiftSpinner.show("Connecting to satellite...")
-        dispatch_async(queue) {() -> Void in
-            
-            var genreURL =
-            ["%E9%AD%94%E6%B3%95", "%E5%88%9D%E6%81%8B", "%E5%A4%A7%E5%86%92%E9%99%BA","%E6%84%9F%E5%8B%95" ]
-            let jsonURL = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/wa/wsSearch?term=\(genreURL[chosenGenre])&media=movie&entity=movie&attribute=descriptionTerm&offset=\(offsetInt)&country=jp"
-            
-            
-            Alamofire.request(.GET, jsonURL,parameters: nil, encoding: .JSON ).responseJSON{(response) in
-                if(response.result.isSuccess){
-                    let json = JSON(response.result.value!)
-                    let movieImageURL:String = String(json["results"][targetInt]["artworkUrl100"])
-                    let movieTitle:String = String(json["results"][targetInt]["trackName"])
-                    let imageURL = NSURL(string:movieImageURL as! String)
-                    let imageData = NSData(contentsOfURL:imageURL!)
-                    let image = UIImage(data: imageData!)
-                    swipeView.imageView.image = UIImage(data: NSData(contentsOfURL: imageURL!)!)
-                    swipeView.tag = self.swipeListCount
-                    
-                    self.readJsonDataDict = [
-                        "num":self.swipeListCount,
-                        "name":movieTitle,
-                        "image":movieImageURL
-                    ]
-                    
-                    //この番号とnumが一致するものを探す
-                    self.swipeListCount++
-                    self.readJsonDataArray.append(self.readJsonDataDict)
-                }
+        var genreURL =
+        ["%E9%AD%94%E6%B3%95", "%E5%88%9D%E6%81%8B", "%E5%A4%A7%E5%86%92%E9%99%BA","%E6%84%9F%E5%8B%95" ]
+        let jsonURL = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/wa/wsSearch?term=\(genreURL[chosenGenre])&media=movie&entity=movie&attribute=descriptionTerm&offset=\(offsetInt)&country=jp"
+        
+        
+        Alamofire.request(.GET, jsonURL,parameters: nil, encoding: .JSON ).responseJSON{(response) in
+            if(response.result.isSuccess){
+                let json = JSON(response.result.value!)
+                let movieImageURL:String = String(json["results"][targetInt]["artworkUrl100"])
+                let movieTitle:String = String(json["results"][targetInt]["trackName"])
+                let imageURL = NSURL(string:movieImageURL as! String)
+                let imageData = NSData(contentsOfURL:imageURL!)
+                let image = UIImage(data: imageData!)
+                swipeView.imageView.image = UIImage(data: NSData(contentsOfURL: imageURL!)!)
+                swipeView.tag = self.swipeListCount
+                self.readJsonDataDict = [
+                    "num":self.swipeListCount,
+                    "name":movieTitle,
+                    "image":movieImageURL
+                ]
+                //この番号とnumが一致するものを探す
+                self.swipeListCount++
+                self.readJsonDataArray.append(self.readJsonDataDict)
             }
             swipeView.hidden = false
+            
             SwiftSpinner.hide()
         }
-        
-        
+        dispatch_resume(self.queue)
         return swipeView
     }
     
@@ -159,7 +151,6 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
                     print(self.readJsonDataArray[i])
                 }
             }
-            
         } else {
             print("Like")
             var userName = appDelegate.userName
@@ -171,7 +162,6 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
                     writeData(userName, txtMovie: movieTitle, txtURL: movieImgURL )
                 }
             }
-            
         }
         swipeCount++
     }

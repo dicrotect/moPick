@@ -89,7 +89,6 @@ class moveiListViewController: UIViewController {
                         ]
                         getCoreData.append(readCoreData)
                     }
-                    
                 }
             }
         } catch let error as NSError {
