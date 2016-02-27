@@ -39,11 +39,9 @@ class moveiListViewController: UIViewController {
         self.dataList = self.readData() as! [NSDictionary]
     }
     
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
     
     @IBAction func returnGenreBtn(sender: UIButton) {
     }
@@ -55,16 +53,23 @@ class moveiListViewController: UIViewController {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var movieTitle = self.dataList[indexPath.row]["title"] as! String
         var cell = UITableViewCell(style: .Default, reuseIdentifier: "myCell")
-        dispatch_async(queue) {() -> Void in
-            cell.textLabel?.text = movieTitle
-            cell.textLabel?.textColor = UIColor.blueColor()
-            let jsonURL = self.dataList[indexPath.row]["image"] as! String
-            let imageURL = NSURL(string:jsonURL as! String)
-            let imageData = NSData(contentsOfURL:imageURL!)
-            let image = UIImage(data: imageData!)
-            cell.imageView?.image = image
-        }
+        
+        cell.textLabel?.text = movieTitle
+        cell.textLabel?.textColor = UIColor.blueColor()
+        let jsonURL = self.dataList[indexPath.row]["image"] as! String
+        let imageURL = NSURL(string:jsonURL as! String)
+        let imageData = NSData(contentsOfURL:imageURL!)
+        let image = UIImage(data: imageData!)
+        cell.imageView?.image = image
+        
         return cell
+    }
+    
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        var num = self.dataList[indexPath.row]["num"] as! Int
+        print(num)
+        editWrite(num)
     }
     
     func readData() -> NSArray{
@@ -80,12 +85,14 @@ class moveiListViewController: UIViewController {
                 for i in 0..<results.count {
                     let obj = results[i] as! NSManagedObject
                     let userName = obj.valueForKey(user) as! String
-                    if userName == thisUserName{
+                    let flag = obj.valueForKey("flag") as! Int
+                    if userName == thisUserName && flag == 0 {
                         let movieName = obj.valueForKey(movie) as! String
                         let imgURL = obj.valueForKey(url) as! String
                         var readCoreData:NSDictionary = [
                             "title":movieName,
-                            "image":imgURL
+                            "image":imgURL,
+                            "num":i
                         ]
                         getCoreData.append(readCoreData)
                     }
@@ -96,6 +103,39 @@ class moveiListViewController: UIViewController {
         }
         return getCoreData
     }
+
+    
+    func editWrite(num: Int) -> Bool{
+        var ret = false
+        
+        let appDelegate: AppDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
+        let context: NSManagedObjectContext = appDelegate.managedObjectContext
+        let request = NSFetchRequest(entityName: entityName)
+        request.returnsObjectsAsFaults = false
+        
+        do {
+            let results: Array = try context.executeFetchRequest(request)
+            
+            // 検索して見つかったらアップデートする
+            //配列+辞書型
+            let obj = results[num] as! NSManagedObject
+            //result[0]["itemName("text")"]を取得
+            let index = obj.valueForKey(flag) as! Int
+            //textをアップデート
+            obj.setValue(1, forKey: flag)
+            print("UPDATE \(index) TO \(1)")
+            appDelegate.saveContext()
+            ret = true
+            
+        } catch let error as NSError {
+            // エラー処理
+            print("FETCH ERROR:\(error.localizedDescription)")
+        }
+        return ret
+    }
+
+    
+    //
     
     
 }
