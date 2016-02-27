@@ -15,11 +15,13 @@ import CoreData
 import Alamofire
 import SwiftyJSON
 
-class moveiListViewController: UIViewController {
 
+class moveiListViewController: UIViewController {
+    
     
     @IBOutlet weak var movieLIstTable: UITableView!
     var appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    let queue:dispatch_queue_t = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
     var userName:String = ""
     var entityName = "MuchMovie"
     var user = "user"
@@ -34,10 +36,10 @@ class moveiListViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-       dataList = readData() as! [NSDictionary]
+        self.dataList = self.readData() as! [NSDictionary]
     }
     
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -51,16 +53,17 @@ class moveiListViewController: UIViewController {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var movieTitle = dataList[indexPath.row]["title"] as! String
+        var movieTitle = self.dataList[indexPath.row]["title"] as! String
         var cell = UITableViewCell(style: .Default, reuseIdentifier: "myCell")
-        cell.textLabel?.text = movieTitle
-        cell.textLabel?.textColor = UIColor.blueColor()
-        let jsonURL = dataList[indexPath.row]["image"] as! String
-        let imageURL = NSURL(string:jsonURL as! String)
-        let imageData = NSData(contentsOfURL:imageURL!)
-        let image = UIImage(data: imageData!)
-        cell.imageView?.image = image
-    
+        dispatch_async(queue) {() -> Void in
+            cell.textLabel?.text = movieTitle
+            cell.textLabel?.textColor = UIColor.blueColor()
+            let jsonURL = self.dataList[indexPath.row]["image"] as! String
+            let imageURL = NSURL(string:jsonURL as! String)
+            let imageData = NSData(contentsOfURL:imageURL!)
+            let image = UIImage(data: imageData!)
+            cell.imageView?.image = image
+        }
         return cell
     }
     

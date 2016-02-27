@@ -8,4 +8,5 @@ link_with "moPick"
 pod 'Alamofire'
 pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
 pod 'MDCSwipeToChoose'
+pod "SwiftSpinner"
 

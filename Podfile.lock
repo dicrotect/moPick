@@ -1,11 +1,13 @@
 PODS:
   - Alamofire (3.2.0)
   - MDCSwipeToChoose (0.2.3)
+  - SwiftSpinner (0.8.0)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
   - Alamofire
   - MDCSwipeToChoose
+  - SwiftSpinner
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
 
 EXTERNAL SOURCES:
@@ -20,6 +22,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: 4da478599fccddff361205c8929333d7fe18dceb
   MDCSwipeToChoose: 56239d98b4558c66e7c3c9069482befd26092270
+  SwiftSpinner: 11c2c5ec7443d92f3026d3067ca8a91d4adef13f
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
 COCOAPODS: 0.39.0

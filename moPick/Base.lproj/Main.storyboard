@@ -80,29 +80,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="LIKE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ivQ-Lh-Ygf">
-                                <rect key="frame" x="36" y="89" width="48" height="21"/>
+                                <rect key="frame" x="218" y="55" width="48" height="21"/>
                                 <color key="backgroundColor" red="0.53332193220000002" green="1" blue="0.79822452399999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Later" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SrY-AM-rGM">
-                                <rect key="frame" x="214" y="89" width="56" height="21"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nBx-nf-kfJ">
-                                <rect key="frame" x="132" y="188" width="36" height="30"/>
-                                <color key="backgroundColor" red="0.1647058874" green="0.9215686917" blue="0.98039221759999995" alpha="1" colorSpace="deviceRGB"/>
-                                <state key="normal" title="more">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="moreMovie:" destination="rZn-x3-3gm" eventType="touchUpInside" id="GKp-VX-TFV"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ylw-cK-aRp">
                                 <rect key="frame" x="-3" y="465" width="323" height="30"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -111,6 +94,23 @@
                                 </state>
                                 <connections>
                                     <action selector="tapBtn:" destination="rZn-x3-3gm" eventType="touchUpInside" id="2eJ-Nd-0DS"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Later" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SrY-AM-rGM">
+                                <rect key="frame" x="33" y="54" width="56" height="21"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nBx-nf-kfJ">
+                                <rect key="frame" x="132" y="411" width="36" height="30"/>
+                                <color key="backgroundColor" red="0.1647058874" green="0.9215686917" blue="0.98039221759999995" alpha="1" colorSpace="deviceRGB"/>
+                                <state key="normal" title="more">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="moreMovie:" destination="rZn-x3-3gm" eventType="touchUpInside" id="GKp-VX-TFV"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -289,8 +289,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="kJd-4n-gS4"/>
         <segue reference="dDk-ek-hmp"/>
-        <segue reference="0Lg-O5-owS"/>
         <segue reference="D5R-N8-wAs"/>
     </inferredMetricsTieBreakers>
 </document>

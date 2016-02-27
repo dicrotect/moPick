@@ -14,6 +14,7 @@ import MDCSwipeToChoose
 import Alamofire
 import SwiftyJSON
 import CoreData
+import SwiftSpinner
 
 
 
@@ -26,7 +27,7 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
     var photoURL = "theater.jpg"
     
     var appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-    
+    let queue:dispatch_queue_t = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
     var entityName = "MuchMovie"
     var user = "user"
     var movie =  "movie"
@@ -40,18 +41,22 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
     }
     
     override func viewWillAppear(animated: Bool) {
-        let swipeView1 = createSwipeView(photoURL)
-        self.view.addSubview(swipeView1)
-        let swipeView2 = createSwipeView(photoURL)
-        self.view.insertSubview(swipeView2, aboveSubview: swipeView1)
-        let swipeView3 = createSwipeView(photoURL)
-        self.view.insertSubview(swipeView3, aboveSubview: swipeView2)
-        let swipeView4 = createSwipeView(photoURL)
-        self.view.insertSubview(swipeView4, aboveSubview: swipeView3)
-        let swipeView5 = createSwipeView(photoURL)
-        self.view.insertSubview(swipeView5, aboveSubview: swipeView4)
         
-       
+        let swipeView1 = self.createSwipeView(self.photoURL)
+        view.addSubview(swipeView1)
+        let swipeView2 = self.createSwipeView(photoURL)
+        view.insertSubview(swipeView2, aboveSubview: swipeView1)
+        let swipeView3 = self.createSwipeView(photoURL)
+        view.insertSubview(swipeView3, aboveSubview: swipeView2)
+        let swipeView4 = self.createSwipeView(photoURL)
+        view.insertSubview(swipeView4, aboveSubview: swipeView3)
+        let swipeView5 = self.createSwipeView(photoURL)
+        view.insertSubview(swipeView5, aboveSubview: swipeView4)
+        
+        
+        
+        
+        
     }
     @IBAction func moreMovie(sender: UIButton) {
         let swipeView1 = createSwipeView(photoURL)
@@ -101,36 +106,41 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
         //取得したいjsonデータを指定
         //ファンタジー/恋愛/冒険/感動
         var chosenGenre = appDelegate.chosenGenre
-        
-        var genreURL =
-        ["%E9%AD%94%E6%B3%95", "%E5%88%9D%E6%81%8B", "%E5%A4%A7%E5%86%92%E9%99%BA","%E6%84%9F%E5%8B%95" ]
-        let jsonURL = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/wa/wsSearch?term=\(genreURL[chosenGenre])&media=movie&entity=movie&attribute=descriptionTerm&offset=\(offsetInt)&country=jp"
-        
-        
-        Alamofire.request(.GET, jsonURL,parameters: nil, encoding: .JSON ).responseJSON{(response) in
-            if(response.result.isSuccess){
-                let json = JSON(response.result.value!)
-                let movieImageURL:String = String(json["results"][targetInt]["artworkUrl100"])
-                let movieTitle:String = String(json["results"][targetInt]["trackName"])
-                let imageURL = NSURL(string:movieImageURL as! String)
-                let imageData = NSData(contentsOfURL:imageURL!)
-                let image = UIImage(data: imageData!)
-                swipeView.imageView.image = UIImage(data: NSData(contentsOfURL: imageURL!)!)
-                swipeView.tag = self.swipeListCount
-                
-                self.readJsonDataDict = [
-                    "num":self.swipeListCount,
-                    "name":movieTitle,
-                    "image":movieImageURL
-                ]
-                
-                //この番号とnumが一致するものを探す
-                self.swipeListCount++
-                self.readJsonDataArray.append(self.readJsonDataDict)
-                
-                
+        swipeView.hidden = true
+        SwiftSpinner.show("Connecting to satellite...")
+        dispatch_async(queue) {() -> Void in
+            
+            var genreURL =
+            ["%E9%AD%94%E6%B3%95", "%E5%88%9D%E6%81%8B", "%E5%A4%A7%E5%86%92%E9%99%BA","%E6%84%9F%E5%8B%95" ]
+            let jsonURL = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/wa/wsSearch?term=\(genreURL[chosenGenre])&media=movie&entity=movie&attribute=descriptionTerm&offset=\(offsetInt)&country=jp"
+            
+            
+            Alamofire.request(.GET, jsonURL,parameters: nil, encoding: .JSON ).responseJSON{(response) in
+                if(response.result.isSuccess){
+                    let json = JSON(response.result.value!)
+                    let movieImageURL:String = String(json["results"][targetInt]["artworkUrl100"])
+                    let movieTitle:String = String(json["results"][targetInt]["trackName"])
+                    let imageURL = NSURL(string:movieImageURL as! String)
+                    let imageData = NSData(contentsOfURL:imageURL!)
+                    let image = UIImage(data: imageData!)
+                    swipeView.imageView.image = UIImage(data: NSData(contentsOfURL: imageURL!)!)
+                    swipeView.tag = self.swipeListCount
+                    
+                    self.readJsonDataDict = [
+                        "num":self.swipeListCount,
+                        "name":movieTitle,
+                        "image":movieImageURL
+                    ]
+                    
+                    //この番号とnumが一致するものを探す
+                    self.swipeListCount++
+                    self.readJsonDataArray.append(self.readJsonDataDict)
+                }
             }
+            swipeView.hidden = false
+            SwiftSpinner.hide()
         }
+        
         
         return swipeView
     }
@@ -142,7 +152,6 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
     
     func view(view: UIView!, wasChosenWithDirection direction: MDCSwipeDirection) {
         
-        
         if (direction == MDCSwipeDirection.Left) {
             print("Later")
             for var i = 0; i < self.readJsonDataArray.count; i++ {
@@ -150,7 +159,7 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
                     print(self.readJsonDataArray[i])
                 }
             }
-
+            
         } else {
             print("Like")
             var userName = appDelegate.userName
