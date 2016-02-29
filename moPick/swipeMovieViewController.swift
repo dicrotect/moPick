@@ -146,11 +146,6 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
         
         if (direction == MDCSwipeDirection.Left) {
             print("Later")
-            for var i = 0; i < self.readJsonDataArray.count; i++ {
-                if view.tag == self.readJsonDataArray[i]["num"] as! Int {
-                    print(self.readJsonDataArray[i])
-                }
-            }
         } else {
             print("Like")
             var userName = appDelegate.userName
@@ -167,7 +162,6 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
     }
     
     func alertUp() {
-        
         let alert = UIAlertController(
             title: "選んだ映画はこちらです",
             message: "映画を選びました!",
@@ -187,7 +181,6 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
             ))
         
         presentViewController(alert, animated: true,completion:nil)
-        
     }
     
     func moveMovieList() {
@@ -209,7 +202,6 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
         do {
             let results: Array = try context.executeFetchRequest(request)
             let entity: NSEntityDescription! = NSEntityDescription.entityForName(entityName, inManagedObjectContext: context)
-            
             let obj = muchMovie(entity: entity, insertIntoManagedObjectContext: context)
             obj.setValue(txtUser, forKey: user)
             obj.setValue(txtMovie, forKey: movie)
@@ -227,5 +219,4 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
         }
         return ret
     }
-    
 }

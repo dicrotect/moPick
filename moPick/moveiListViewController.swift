@@ -14,6 +14,7 @@ import UIKit
 import CoreData
 import Alamofire
 import SwiftyJSON
+import SwiftSpinner
 
 
 class moveiListViewController: UIViewController {
@@ -29,7 +30,10 @@ class moveiListViewController: UIViewController {
     var flag = "flag"
     var url = "imgURL"
     var getCoreData:[NSDictionary] = []
+    var getCoreData02:[NSDictionary] = []
     var dataList:[NSDictionary] = []
+    var dataCheckedList:[NSDictionary] = []
+    var checkMarks:[Bool]  = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +41,9 @@ class moveiListViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         self.dataList = self.readData() as! [NSDictionary]
+        for var i = 0; i < dataList.count; i++ {
+            checkMarks.append(false)
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -51,28 +58,44 @@ class moveiListViewController: UIViewController {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var cell = UITableViewCell(style: .Default,reuseIdentifier: "myCell")
         var movieTitle = self.dataList[indexPath.row]["title"] as! String
-        var cell = UITableViewCell(style: .Default, reuseIdentifier: "myCell")
-        
+        var checkeFlag = self.dataList[indexPath.row]["flag"] as!  Int
         cell.textLabel?.text = movieTitle
         cell.textLabel?.textColor = UIColor.blueColor()
+        if checkeFlag == 1 {
+            cell.accessoryType = .Checkmark
+        }
+        
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.whiteColor()
+        cell.selectedBackgroundView = backgroundView
+
+    
         let jsonURL = self.dataList[indexPath.row]["image"] as! String
         let imageURL = NSURL(string:jsonURL as! String)
         let imageData = NSData(contentsOfURL:imageURL!)
         let image = UIImage(data: imageData!)
         cell.imageView?.image = image
-        
         return cell
     }
     
-    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        var cell = UITableViewCell(style: .Default, reuseIdentifier: "myCell")
         var num = self.dataList[indexPath.row]["num"] as! Int
-        print(num)
         editWrite(num)
+        
+        if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+            if cell.accessoryType == .None {
+                cell.accessoryType = .Checkmark
+                cell.textLabel?.font = UIFont.boldSystemFontOfSize(17)
+            }
+        }
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
-    func readData() -> NSArray{
+
+    func readData() -> NSArray {
         let appDelegate: AppDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
         var thisUserName = appDelegate.userName
         let context: NSManagedObjectContext = appDelegate.managedObjectContext
@@ -84,17 +107,29 @@ class moveiListViewController: UIViewController {
             if (results.count > 0 ) {
                 for i in 0..<results.count {
                     let obj = results[i] as! NSManagedObject
-                    let userName = obj.valueForKey(user) as! String
+                    let userName = obj.valueForKey(self.user) as! String
                     let flag = obj.valueForKey("flag") as! Int
-                    if userName == thisUserName && flag == 0 {
-                        let movieName = obj.valueForKey(movie) as! String
-                        let imgURL = obj.valueForKey(url) as! String
-                        var readCoreData:NSDictionary = [
-                            "title":movieName,
-                            "image":imgURL,
-                            "num":i
-                        ]
-                        getCoreData.append(readCoreData)
+                    if userName == thisUserName {
+                            let movieName = obj.valueForKey(self.movie) as! String
+                            let imgURL = obj.valueForKey(self.url) as! String
+                            let checkFlag = obj.valueForKey(self.flag) as! Int
+                            var readCoreData:NSDictionary = [
+                                "title":movieName,
+                                "image":imgURL,
+                                "flag":checkFlag,
+                                "num":i
+                            ]
+                            self.getCoreData.append(readCoreData)
+                                                if flag == 1 {
+                            let movieName = obj.valueForKey(movie) as! String
+                            let imgURL = obj.valueForKey(url) as! String
+                            var readCoreDataChecked:NSDictionary = [
+                                "title":movieName,
+                                "image":imgURL,
+                                "num":i
+                            ]
+                            getCoreData02.append(readCoreDataChecked)
+                        }
                     }
                 }
             }
@@ -103,7 +138,7 @@ class moveiListViewController: UIViewController {
         }
         return getCoreData
     }
-
+    
     
     func editWrite(num: Int) -> Bool{
         var ret = false
@@ -115,27 +150,17 @@ class moveiListViewController: UIViewController {
         
         do {
             let results: Array = try context.executeFetchRequest(request)
-            
-            // 検索して見つかったらアップデートする
-            //配列+辞書型
             let obj = results[num] as! NSManagedObject
-            //result[0]["itemName("text")"]を取得
             let index = obj.valueForKey(flag) as! Int
             //textをアップデート
             obj.setValue(1, forKey: flag)
-            print("UPDATE \(index) TO \(1)")
             appDelegate.saveContext()
             ret = true
-            
         } catch let error as NSError {
             // エラー処理
             print("FETCH ERROR:\(error.localizedDescription)")
         }
         return ret
     }
-
-    
-    //
-    
     
 }
