@@ -29,10 +29,13 @@ class moveiListViewController: UIViewController {
     var movie = "movie"
     var flag = "flag"
     var url = "imgURL"
+    
+   
+    var getList:[NSDictionary] = []
     var getCoreData:[NSDictionary] = []
-    var getCoreData02:[NSDictionary] = []
+   
     var dataList:[NSDictionary] = []
-    var dataCheckedList:[NSDictionary] = []
+    
     var checkMarks:[Bool]  = []
     
     override func viewDidLoad() {
@@ -109,27 +112,29 @@ class moveiListViewController: UIViewController {
                     let obj = results[i] as! NSManagedObject
                     let userName = obj.valueForKey(self.user) as! String
                     let flag = obj.valueForKey("flag") as! Int
+                    let movieName = obj.valueForKey(self.movie) as! String
+                    let imgURL = obj.valueForKey(self.url) as! String
+                    let checkFlag = obj.valueForKey(self.flag) as! Int
                     if userName == thisUserName {
-                            let movieName = obj.valueForKey(self.movie) as! String
-                            let imgURL = obj.valueForKey(self.url) as! String
-                            let checkFlag = obj.valueForKey(self.flag) as! Int
-                            var readCoreData:NSDictionary = [
+                        if flag == 0 {
+                        var readCoreData:NSDictionary = [
+                            "title":movieName,
+                            "image":imgURL,
+                            "flag":checkFlag,
+                            "num":i
+                        ]
+                        getList.append(readCoreData)
+                        }
+                        if flag == 1 {
+                            var readCoreData01:NSDictionary = [
                                 "title":movieName,
                                 "image":imgURL,
                                 "flag":checkFlag,
                                 "num":i
                             ]
-                            self.getCoreData.append(readCoreData)
-                                                if flag == 1 {
-                            let movieName = obj.valueForKey(movie) as! String
-                            let imgURL = obj.valueForKey(url) as! String
-                            var readCoreDataChecked:NSDictionary = [
-                                "title":movieName,
-                                "image":imgURL,
-                                "num":i
-                            ]
-                            getCoreData02.append(readCoreDataChecked)
+                            getList.insert(readCoreData01, atIndex: 0)
                         }
+                        getCoreData = getList.reverse()
                     }
                 }
             }
@@ -138,6 +143,11 @@ class moveiListViewController: UIViewController {
         }
         return getCoreData
     }
+    
+    
+    
+    
+    
     
     
     func editWrite(num: Int) -> Bool{
