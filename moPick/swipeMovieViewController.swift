@@ -20,12 +20,9 @@ import SwiftSpinner
 
 class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
     
-    
-    
     var swipeCount = 0
     var swipeListCount = 0
     var photoURL = "theater.jpg"
-    
     var appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     let queue:dispatch_queue_t = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
     var entityName = "MuchMovie"
@@ -35,6 +32,8 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
     var url = "imgURL"
     var readJsonDataDict:NSDictionary = ["":""]
     var readJsonDataArray:[NSDictionary] = []
+    var swipeView = UIView()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,38 +42,17 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
     override func viewWillAppear(animated: Bool) {
         
         
-        let swipeView1 = self.createSwipeView(self.photoURL)
-        view.addSubview(swipeView1)
-        let swipeView2 = self.createSwipeView(photoURL)
-        view.insertSubview(swipeView2, aboveSubview: swipeView1)
-        let swipeView3 = self.createSwipeView(photoURL)
-        view.insertSubview(swipeView3, aboveSubview: swipeView2)
-        let swipeView4 = self.createSwipeView(photoURL)
-        view.insertSubview(swipeView4, aboveSubview: swipeView3)
-        let swipeView5 = self.createSwipeView(photoURL)
-        view.insertSubview(swipeView5, aboveSubview: swipeView4)
-        
+        createViewPage()
     }
     @IBAction func moreMovie(sender: UIButton) {
-        let swipeView1 = createSwipeView(photoURL)
-        self.view.addSubview(swipeView1)
-        let swipeView2 = createSwipeView(photoURL)
-        self.view.insertSubview(swipeView2, aboveSubview: swipeView1)
-        let swipeView3 = createSwipeView(photoURL)
-        self.view.insertSubview(swipeView3, aboveSubview: swipeView2)
-        let swipeView4 = createSwipeView(photoURL)
-        self.view.insertSubview(swipeView4, aboveSubview: swipeView3)
-        let swipeView5 = createSwipeView(photoURL)
-        self.view.insertSubview(swipeView5, aboveSubview: swipeView4)
+        
     }
-    
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    func createSwipeView(url: String) -> UIView {
+    func createSwipeView() -> UIView {
         let options = MDCSwipeToChooseViewOptions()
         options.delegate = self
         options.likedText = "Like"
@@ -82,16 +60,12 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
         options.nopeText = "Later"
         options.nopeColor = UIColor.lightGrayColor()
         
-        let swipeView = MDCSwipeToChooseView(
-            frame: CGRect(
-                x: 90,
-                y: 170,
-                width: 140,
-                height: 140
-            ),
-            options: options
-        )
-        
+        var view = MDCSwipeToChooseView(frame: CGRectMake(0,150,300,300), options: options)
+        return view
+    }
+    
+    func createViewPage()-> Void {
+    
         let targetFirstInt = (arc4random() % 9)
         let targetFirstString:String = String(targetFirstInt)
         let targetSecondInt = (arc4random() % 5)
@@ -100,15 +74,14 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
         let targetInt:Int = Int(targetString)!
         let offsetInt = (arc4random() % 4)
         
-        //取得したいjsonデータを指定
+        
         //ファンタジー/恋愛/冒険/感動
         var chosenGenre = appDelegate.chosenGenre
         swipeView.hidden = true
         SwiftSpinner.show("Connecting to satellite...")
         var genreURL =
-        ["%E9%AD%94%E6%B3%95", "%E5%88%9D%E6%81%8B", "%E5%A4%A7%E5%86%92%E9%99%BA","%E6%84%9F%E5%8B%95" ]
+        ["%E9%AD%94%E6%B3%95", "%E5%88%9D%E6%81%8B", "%E5%A4%A7%E5%86%92%E9%99%BA","%E6%84%9F%E5%8B%95","%E6%8E%A2%E5%81%B5","%E8%87%AA%E7%84%B6" ]
         let jsonURL = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/wa/wsSearch?term=\(genreURL[chosenGenre])&media=movie&entity=movie&attribute=descriptionTerm&offset=\(offsetInt)&country=jp"
-        
         
         Alamofire.request(.GET, jsonURL,parameters: nil, encoding: .JSON ).responseJSON{(response) in
             if(response.result.isSuccess){
@@ -118,23 +91,43 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
                 let imageURL = NSURL(string:movieImageURL as! String)
                 let imageData = NSData(contentsOfURL:imageURL!)
                 let image = UIImage(data: imageData!)
-                swipeView.imageView.image = UIImage(data: NSData(contentsOfURL: imageURL!)!)
-                swipeView.tag = self.swipeListCount
+                var title = String(json["results"][targetInt]["trackName"])
+                var story = String(json["results"][targetInt]["longDescription"])
+                
+                self.swipeView.tag = self.swipeListCount
                 self.readJsonDataDict = [
                     "num":self.swipeListCount,
                     "name":movieTitle,
                     "image":movieImageURL
                 ]
+                let imageView1 = UIImageView(image:image)
+                let titleView = UILabel()
+                titleView.text = title
+                titleView.backgroundColor = UIColor.greenColor()
+                titleView.frame = CGRectMake(0,0, 300, 50)
+                
+                let storyView = UITextView()
+                storyView.text = story
+                storyView.backgroundColor = UIColor.whiteColor()
+                storyView.frame = CGRectMake(0, 120, 300, 200)
+                print(story)
+                
+                let swipeView1 = self.createSwipeView()
+                imageView1.frame = CGRectMake(120, 50, 80, 80)
+                
+                swipeView1.addSubview(imageView1)
+                swipeView1.addSubview(titleView)
+                swipeView1.addSubview(storyView)
+                self.view.addSubview(swipeView1)
+
                 //この番号とnumが一致するものを探す
                 self.swipeListCount++
                 self.readJsonDataArray.append(self.readJsonDataDict)
             }
-            swipeView.hidden = false
-            
+            self.swipeView.hidden = false
             SwiftSpinner.hide()
         }
         dispatch_resume(self.queue)
-        return swipeView
     }
     
     @IBAction func tapBtn(sender: UIButton) {

@@ -10,6 +10,15 @@ import UIKit
 
 class chooseGenreViewController: UIViewController {
 
+    
+    @IBOutlet weak var loveIconBtn: UIButton!
+    @IBOutlet weak var humanIconBtn: UIButton!
+    @IBOutlet weak var adventureIconBtn: UIButton!
+    @IBOutlet weak var funtasyIconBtn: UIButton!
+    
+    let loveImage = UIImage(named: "love.png")! as UIImage
+    
+    
     @IBOutlet weak var userlabel: UILabel!
     var chooseGenre = Int()
     
@@ -22,6 +31,8 @@ class chooseGenreViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         var userName = appDelegate.userName
         userlabel.text = userName
+        loveIconBtn.setImage(loveImage, forState: .Normal)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -46,6 +57,14 @@ class chooseGenreViewController: UIViewController {
         appDelegate.chosenGenre = 3
     }
     
+    @IBAction func chooseSuspense(sender: UIButton) {
+        var appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.chosenGenre = 4
+    }
+    @IBAction func chooseAnimal(sender: UIButton) {
+        var appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.chosenGenre = 5
+    }
     
     
 
