@@ -1,72 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Jvo-9J-EXc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="wZ7-7A-Fm8">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="moPick" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="moPick" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="68d-eE-P4D">
-                                <rect key="frame" x="99" y="89" width="122" height="28"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="34"/>
-                                <color key="textColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XKw-t4-8f5">
-                                <rect key="frame" x="0.0" y="398" width="320" height="41"/>
-                                <color key="backgroundColor" red="1" green="0.76069166740000005" blue="0.71321822010000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <state key="normal" title="ENTER">
-                                    <color key="titleColor" red="1" green="0.4714011474" blue="0.26398909329999998" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="resiterName:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OhM-Fr-cwW"/>
-                                    <segue destination="vLW-GL-Ev9" kind="show" identifier="" id="TYu-zp-82f"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S1h-yO-j3T">
-                                <rect key="frame" x="81" y="307" width="173" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="returnText:" destination="BYZ-38-t0r" eventType="editingDidEndOnExit" id="I8b-f4-LBh"/>
-                                </connections>
-                            </textField>
-                        </subviews>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        <gestureRecognizers/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="djU-ru-vI3" appends="YES" id="oqr-re-kUu"/>
-                        </connections>
-                    </view>
-                    <navigationItem key="navigationItem" id="tYd-hh-5ME"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <connections>
-                        <outlet property="enterBtn" destination="XKw-t4-8f5" id="zeg-Yd-Ymp"/>
-                        <outlet property="nameArea" destination="S1h-yO-j3T" id="Yxh-QS-U9q"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="djU-ru-vI3">
-                    <connections>
-                        <action selector="tapScreen:" destination="BYZ-38-t0r" id="9gE-2z-joW"/>
-                        <outlet property="delegate" destination="8bC-Xf-vdC" id="nMl-Io-7ci"/>
-                    </connections>
-                </tapGestureRecognizer>
-            </objects>
-            <point key="canvasLocation" x="722" y="329"/>
-        </scene>
         <!--Swipe Movie View Controller-->
         <scene sceneID="TAB-nf-A08">
             <objects>
@@ -105,12 +43,11 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <segue destination="TQM-zz-hap" kind="presentation" identifier="showMovieList" id="D5R-N8-wAs"/>
-                        <segue destination="vLW-GL-Ev9" kind="presentation" identifier="backToChooseGenre" id="kJd-4n-gS4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hh7-5i-cqU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="802" y="1251"/>
+            <point key="canvasLocation" x="2370" y="1203"/>
         </scene>
         <!--Movei List View Controller-->
         <scene sceneID="EEG-tA-SuJ">
@@ -132,7 +69,7 @@
                                 </state>
                                 <connections>
                                     <action selector="returnGenreBtn:" destination="TQM-zz-hap" eventType="touchUpInside" id="m3p-BV-gYr"/>
-                                    <segue destination="vLW-GL-Ev9" kind="show" id="0Lg-O5-owS"/>
+                                    <segue destination="wZ7-7A-Fm8" kind="show" id="rHP-D5-Mjz"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="cell" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MhH-Yp-vcE">
@@ -163,12 +100,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OZX-q6-flg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1660" y="1251"/>
+            <point key="canvasLocation" x="3064" y="1203"/>
         </scene>
         <!--Choose Genre View Controller-->
         <scene sceneID="BRQ-6f-vuC">
             <objects>
-                <viewController id="vLW-GL-Ev9" customClass="chooseGenreViewController" customModule="moPick" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vLW-GL-Ev9" customClass="chooseGenreViewController" customModule="moPick" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8WB-i8-kQX"/>
                         <viewControllerLayoutGuide type="bottom" id="KXj-Mq-m9D"/>
@@ -177,18 +114,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oAx-tL-gQx">
-                                <rect key="frame" x="0.0" y="518" width="165" height="30"/>
-                                <color key="backgroundColor" red="0.1339609514" green="0.56335558919999995" blue="0.99266098479999998" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="TOPへ">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="Jvo-9J-EXc" kind="show" id="2jz-9z-YBX"/>
-                                </connections>
-                            </button>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="theater.jpg" highlighted="YES" translatesAutoresizingMaskIntoConstraints="NO" id="741-Tf-DCF">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="en0-Cm-6RV">
-                                <rect key="frame" x="164" y="518" width="156" height="30"/>
+                                <rect key="frame" x="65" y="508" width="156" height="30"/>
                                 <color key="backgroundColor" red="0.20462290720000001" green="0.66094539139999997" blue="0.21205055340000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="映画リストへ">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -198,7 +128,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s1k-hJ-5gd">
-                                <rect key="frame" x="13" y="214" width="84" height="83"/>
+                                <rect key="frame" x="8" y="274" width="84" height="83"/>
                                 <state key="normal" image="love.png">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -208,7 +138,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zxK-ia-x2b">
-                                <rect key="frame" x="13" y="310" width="82" height="86"/>
+                                <rect key="frame" x="10" y="359" width="82" height="86"/>
                                 <state key="normal" image="adventure.png">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -217,46 +147,16 @@
                                     <segue destination="rZn-x3-3gm" kind="show" identifier="adventureSegue" id="g04-Ng-3Oc"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H5j-SL-plB">
-                                <rect key="frame" x="99" y="310" width="96" height="90"/>
-                                <state key="normal" image="funtasy.png">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="chooseFantasy:" destination="vLW-GL-Ev9" eventType="touchUpInside" id="bRL-p4-GmY"/>
-                                    <segue destination="rZn-x3-3gm" kind="show" identifier="fantasySegue" id="xuk-4N-MrK"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="userName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zCE-WH-a0G">
-                                <rect key="frame" x="120" y="96" width="79" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="今日の気分は？" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TQ2-vi-lhz">
-                                <rect key="frame" x="38" y="151" width="245" height="42"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wBs-M7-dB0">
-                                <rect key="frame" x="207" y="306" width="88" height="94"/>
+                                <rect key="frame" x="212" y="365" width="88" height="94"/>
                                 <state key="normal" title="Button" image="anumals.png"/>
                                 <connections>
                                     <action selector="chooseAnimal:" destination="vLW-GL-Ev9" eventType="touchUpInside" id="0lj-Gp-ocg"/>
                                     <segue destination="rZn-x3-3gm" kind="show" id="iHe-Gi-60I"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rhs-Bh-x1W">
-                                <rect key="frame" x="203" y="212" width="79" height="86"/>
-                                <state key="normal" image="suspense.png"/>
-                                <connections>
-                                    <action selector="chooseSuspense:" destination="vLW-GL-Ev9" eventType="touchUpInside" id="fWR-OI-6n1"/>
-                                    <segue destination="rZn-x3-3gm" kind="show" id="4R6-IN-rkk"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="19H-8E-dBm">
-                                <rect key="frame" x="101" y="201" width="94" height="86"/>
+                                <rect key="frame" x="109" y="265" width="87" height="86"/>
                                 <state key="normal" image="human.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -265,39 +165,57 @@
                                     <segue destination="rZn-x3-3gm" kind="show" identifier="emotionSegue" id="WPW-cP-F0G"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rhs-Bh-x1W">
+                                <rect key="frame" x="221" y="271" width="79" height="86"/>
+                                <state key="normal" image="suspense.png"/>
+                                <connections>
+                                    <action selector="chooseSuspense:" destination="vLW-GL-Ev9" eventType="touchUpInside" id="fWR-OI-6n1"/>
+                                    <segue destination="rZn-x3-3gm" kind="show" id="4R6-IN-rkk"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H5j-SL-plB">
+                                <rect key="frame" x="100" y="359" width="96" height="90"/>
+                                <state key="normal" image="funtasy.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="chooseFantasy:" destination="vLW-GL-Ev9" eventType="touchUpInside" id="bRL-p4-GmY"/>
+                                    <segue destination="rZn-x3-3gm" kind="show" identifier="fantasySegue" id="xuk-4N-MrK"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="NHd-79-WU4"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="adventureIconBtn" destination="zxK-ia-x2b" id="tLE-9J-fKX"/>
                         <outlet property="funtasyIconBtn" destination="H5j-SL-plB" id="VNq-Jl-52R"/>
                         <outlet property="humanIconBtn" destination="19H-8E-dBm" id="j1y-Pv-otW"/>
                         <outlet property="loveIconBtn" destination="s1k-hJ-5gd" id="DLt-4k-e57"/>
-                        <outlet property="userlabel" destination="zCE-WH-a0G" id="yId-tf-URH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cj0-aF-Hgt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1330" y="441"/>
+            <point key="canvasLocation" x="3006" y="351"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="hhg-jB-Hb1">
+        <scene sceneID="OAD-gd-mOy">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Jvo-9J-EXc" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wZ7-7A-Fm8" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="B9E-Gx-XZJ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="f2a-sm-Jcf">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="8KN-ct-C48"/>
+                        <segue destination="vLW-GL-Ev9" kind="relationship" relationship="rootViewController" id="6s7-1Z-vBZ"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lP4-1m-CAf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h0R-fg-kDI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-253" y="345"/>
+            <point key="canvasLocation" x="2194" y="351"/>
         </scene>
     </scenes>
     <resources>
@@ -307,10 +225,10 @@
         <image name="human.png" width="178" height="192"/>
         <image name="love.png" width="186" height="192"/>
         <image name="suspense.png" width="172" height="204"/>
+        <image name="theater.jpg" width="1200" height="800"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="SgI-Fb-MsF"/>
-        <segue reference="kJd-4n-gS4"/>
+        <segue reference="D5R-N8-wAs"/>
         <segue reference="dDk-ek-hmp"/>
     </inferredMetricsTieBreakers>
 </document>

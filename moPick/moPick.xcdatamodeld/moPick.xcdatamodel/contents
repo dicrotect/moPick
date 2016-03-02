@@ -4,9 +4,8 @@
         <attribute name="flag" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="imgURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="movie" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="user" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="MuchMovie" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="MuchMovie" positionX="-63" positionY="-18" width="128" height="90"/>
     </elements>
 </model>

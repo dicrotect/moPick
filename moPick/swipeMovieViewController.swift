@@ -26,7 +26,6 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
     var appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     let queue:dispatch_queue_t = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
     var entityName = "MuchMovie"
-    var user = "user"
     var movie =  "movie"
     var flag = "flag"
     var url = "imgURL"
@@ -141,13 +140,12 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
             print("Later")
         } else {
             print("Like")
-            var userName = appDelegate.userName
-            print("Later")
+    
             for var i = 0; i < self.readJsonDataArray.count; i++ {
                 if view.tag == self.readJsonDataArray[i]["num"] as! Int {
                     var movieTitle = self.readJsonDataArray[i]["name"] as! String
                     var movieImgURL = self.readJsonDataArray[i]["image"] as! String
-                    writeData(userName, txtMovie: movieTitle, txtURL: movieImgURL )
+                    writeData( movieTitle, txtURL: movieImgURL )
                 }
             }
         }
@@ -183,11 +181,10 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
         self.performSegueWithIdentifier("backToChooseGenre", sender: nil)
     }
     
-    func writeData(txtUser: String , txtMovie: String, txtURL: String) -> Bool{
+    func writeData(txtMovie: String, txtURL: String) -> Bool{
         //txtUser デリゲートで保存している名前
         //txtMovie いいねにした映画タイトル
         var ret = false
-        let appDelegate: AppDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
         let context: NSManagedObjectContext = appDelegate.managedObjectContext
         let request = NSFetchRequest(entityName: entityName)
         request.returnsObjectsAsFaults = false
@@ -196,7 +193,6 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
             let results: Array = try context.executeFetchRequest(request)
             let entity: NSEntityDescription! = NSEntityDescription.entityForName(entityName, inManagedObjectContext: context)
             let obj = muchMovie(entity: entity, insertIntoManagedObjectContext: context)
-            obj.setValue(txtUser, forKey: user)
             obj.setValue(txtMovie, forKey: movie)
             obj.setValue(txtURL, forKey: url)
             obj.setValue(0, forKey: flag)

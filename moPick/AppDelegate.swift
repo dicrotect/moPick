@@ -13,8 +13,6 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
-    var userName:String = ""
     var chosenGenre = Int()
     var chosenMovie:String = ""
 
