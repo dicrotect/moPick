@@ -85,6 +85,7 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods/Alamofire.framework"
+  install_framework "Pods/AsyncKit.framework"
   install_framework "Pods/LTMorphingLabel.framework"
   install_framework "Pods/MDCSwipeToChoose.framework"
   install_framework "Pods/SwiftSpinner.framework"
@@ -92,6 +93,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods/Alamofire.framework"
+  install_framework "Pods/AsyncKit.framework"
   install_framework "Pods/LTMorphingLabel.framework"
   install_framework "Pods/MDCSwipeToChoose.framework"
   install_framework "Pods/SwiftSpinner.framework"

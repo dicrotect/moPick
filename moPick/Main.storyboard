@@ -17,19 +17,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ylw-cK-aRp">
-                                <rect key="frame" x="-3" y="465" width="323" height="30"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="映画を選ぶのをやめる">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="tapBtn:" destination="rZn-x3-3gm" eventType="touchUpInside" id="2eJ-Nd-0DS"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nBx-nf-kfJ">
-                                <rect key="frame" x="132" y="411" width="36" height="30"/>
-                                <color key="backgroundColor" red="0.1647058874" green="0.9215686917" blue="0.98039221759999995" alpha="1" colorSpace="deviceRGB"/>
+                                <rect key="frame" x="137" y="289" width="36" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="more">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -37,12 +27,42 @@
                                     <action selector="moreMovie:" destination="rZn-x3-3gm" eventType="touchUpInside" id="GKp-VX-TFV"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rBT-mR-uly">
+                                <rect key="frame" x="0.0" y="64" width="67" height="64"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ef2-nS-v5r">
+                                <rect key="frame" x="14" y="530" width="122" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.76069166740000005" blue="0.71321822010000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="キャラを選び直す">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="vLW-GL-Ev9" kind="show" id="s0K-4H-sgW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fVu-z4-o3n">
+                                <rect key="frame" x="166" y="530" width="140" height="30"/>
+                                <color key="backgroundColor" red="0.1647058874" green="0.9215686917" blue="0.98039221759999995" alpha="1" colorSpace="deviceRGB"/>
+                                <state key="normal" title="見たいリストへ">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="TQM-zz-hap" kind="show" id="P7n-hQ-CcV"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="気に入ったら右へ!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VUg-jf-dpS" customClass="LTMorphingLabel" customModule="LTMorphingLabel">
+                                <rect key="frame" x="70" y="85" width="220" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <segue destination="TQM-zz-hap" kind="presentation" identifier="showMovieList" id="D5R-N8-wAs"/>
+                        <outlet property="charaCommentLabel" destination="VUg-jf-dpS" id="CF6-X3-uwF"/>
+                        <outlet property="charaImage" destination="rBT-mR-uly" id="9Cz-UZ-QOh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hh7-5i-cqU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -119,7 +139,7 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="en0-Cm-6RV">
-                                <rect key="frame" x="65" y="508" width="156" height="30"/>
+                                <rect key="frame" x="79" y="475" width="156" height="30"/>
                                 <color key="backgroundColor" red="0.20462290720000001" green="0.66094539139999997" blue="0.21205055340000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="映画リストへ">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -129,7 +149,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s1k-hJ-5gd">
-                                <rect key="frame" x="8" y="274" width="84" height="83"/>
+                                <rect key="frame" x="8" y="245" width="101" height="95"/>
                                 <state key="normal" image="love.png">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -139,7 +159,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zxK-ia-x2b">
-                                <rect key="frame" x="10" y="359" width="82" height="86"/>
+                                <rect key="frame" x="8" y="340" width="101" height="95"/>
                                 <state key="normal" image="adventure.png">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -149,7 +169,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wBs-M7-dB0">
-                                <rect key="frame" x="212" y="365" width="88" height="94"/>
+                                <rect key="frame" x="208" y="340" width="105" height="95"/>
                                 <state key="normal" title="Button" image="anumals.png"/>
                                 <connections>
                                     <action selector="chooseAnimal:" destination="vLW-GL-Ev9" eventType="touchUpInside" id="0lj-Gp-ocg"/>
@@ -157,7 +177,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="19H-8E-dBm">
-                                <rect key="frame" x="109" y="265" width="87" height="86"/>
+                                <rect key="frame" x="109" y="245" width="101" height="95"/>
                                 <state key="normal" image="human.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -167,7 +187,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rhs-Bh-x1W">
-                                <rect key="frame" x="221" y="271" width="79" height="86"/>
+                                <rect key="frame" x="208" y="245" width="105" height="95"/>
                                 <state key="normal" image="suspense.png"/>
                                 <connections>
                                     <action selector="chooseSuspense:" destination="vLW-GL-Ev9" eventType="touchUpInside" id="fWR-OI-6n1"/>
@@ -175,7 +195,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H5j-SL-plB">
-                                <rect key="frame" x="100" y="359" width="96" height="90"/>
+                                <rect key="frame" x="109" y="340" width="101" height="95"/>
                                 <state key="normal" image="funtasy.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -185,7 +205,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="mopick" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pz6-KY-9MZ" customClass="LTMorphingLabel" customModule="LTMorphingLabel">
-                                <rect key="frame" x="65" y="132" width="185" height="53"/>
+                                <rect key="frame" x="65" y="101" width="185" height="53"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="38"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -236,7 +256,8 @@
         <image name="theater.jpg" width="1200" height="800"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="SgI-Fb-MsF"/>
         <segue reference="dDk-ek-hmp"/>
+        <segue reference="s0K-4H-sgW"/>
+        <segue reference="P7n-hQ-CcV"/>
     </inferredMetricsTieBreakers>
 </document>

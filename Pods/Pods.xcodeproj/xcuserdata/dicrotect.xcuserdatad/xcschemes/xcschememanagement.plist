@@ -9,6 +9,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>AsyncKit-AsyncKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>AsyncKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>LTMorphingLabel.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,12 +52,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>532D9576C6E4A3F89DF6F51F03BDF7EC</key>
+		<key>3FBD3F50C15F373A6CC46EEB573F8AC8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>68555C23AFB089285DA3098770DCC17E</key>
+		<key>6E74C17D3A60A3507E5856FF6D32AA24</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -62,7 +72,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BE516568D37B0969BFF5B5B5025849F6</key>
+		<key>BDF9181FB8E998A061CF612B2000025C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C7186A82F98F855826D76A68A4242B8A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FA0110F0525582E2A734799EDE35DADE</key>
 		<dict>
 			<key>primary</key>
 			<true/>

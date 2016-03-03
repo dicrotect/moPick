@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '7DD2A7DD2F5403D1CC8CBA7A'
-               BlueprintName = 'Pods'
+               BlueprintIdentifier = 'CF06722CFF427105A9645979'
+               BlueprintName = 'AsyncKit-AsyncKit'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'Pods.framework'>
+               BuildableName = 'AsyncKit.bundle'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

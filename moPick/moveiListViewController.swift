@@ -15,9 +15,10 @@ import CoreData
 import Alamofire
 import SwiftyJSON
 import SwiftSpinner
+import AsyncKit
 
 
-class moveiListViewController: UIViewController {
+class moveiListViewController: UIViewController  {
     
     
     @IBOutlet weak var movieLIstTable: UITableView!
@@ -28,6 +29,7 @@ class moveiListViewController: UIViewController {
     var movie = "movie"
     var flag = "flag"
     var url = "imgURL"
+    let async = AsyncKit<String, NSError>()
     
     
    
@@ -40,14 +42,43 @@ class moveiListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         navigationItem.leftBarButtonItem = editButtonItem()
+        //SwiftSpinner.show("Connecting to satellite...")
     }
     
     override func viewWillAppear(animated: Bool) {
-        self.dataList = self.readData() as! [NSDictionary]
-        for var i = 0; i < dataList.count; i++ {
-            checkMarks.append(false)
+        
+        AsyncKit<String, NSError>().parallel([
+            { done in
+                SwiftSpinner.show("Connecting to satellite...")
+                    done(.Success("one"))
+                
+            }, { done in
+                self.dataList = self.readData() as! [NSDictionary]
+                for var i = 0; i < self.dataList.count; i++ {
+                    self.checkMarks.append(false)
+                }
+                
+                    done(.Success("two"))
+                
+            }
+            ]) { result in
+                switch result {
+                case .Success(let objects):
+                    print(objects)
+                    SwiftSpinner.hide()
+                case .Failure(let error):
+                    print(error)
+                }
         }
+        
+        
+        
+        
+//        self.dataList = self.readData() as! [NSDictionary]
+//        for var i = 0; i < dataList.count; i++ {
+//            checkMarks.append(false)
+//        }
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -109,7 +140,7 @@ class moveiListViewController: UIViewController {
         animation.fromValue = 0.0
         animation.toValue = 1.0
         animation.duration = 1.0
-        animation.beginTime = CACurrentMediaTime() + 0.3
+        animation.beginTime = CACurrentMediaTime() + 0.2
         
         // アニメーションが開始される前からアニメーション開始地点に表示
         animation.fillMode = kCAFillModeBackwards
@@ -122,46 +153,16 @@ class moveiListViewController: UIViewController {
     }
     
     
-    override func setEditing(editing: Bool, animated: Bool) {
-        super.setEditing(editing, animated: animated)
-        //tableView.editing = editing
-    }
     
-//    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-//        return true
-//    }
-    func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
     
-//    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-//        var num = self.dataList[indexPath.row]["num"] as! Int
-//        // 先にデータを更新する
-//        editWrite(num)
-//        // それからテーブルの更新
-//        tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: indexPath.row, inSection: 0)],
-//            withRowAnimation: UITableViewRowAnimation.Fade)
-//    }
-//    func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
-//        var cell = UITableViewCell(style: .Default,reuseIdentifier: "myCell")
-//        var movieTitle = self.dataList[sourceIndexPath.row]["title"] as! String
-//        let targetTitle = movieTitle[sourceIndexPath.row]
-//        if let index = titles.indexOf(targetTitle) {
-//            titles.removeAtIndex(index)
-//            titles.insert(targetTitle, atIndex: destinationIndexPath.row)
-//        }
-//    }
-//    
-    
-    
-    
-    
-    
-    
-    
-    
-    //coreData
-
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        var num = self.dataList[indexPath.row]["num"] as! Int
+        deleteData(num,index: indexPath.row)
+    }
+   
     func readData() -> NSArray {
         let appDelegate: AppDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
         let context: NSManagedObjectContext = appDelegate.managedObjectContext
@@ -228,9 +229,9 @@ class moveiListViewController: UIViewController {
     }
     
     
-    func deleteData(num: Int) -> Bool {
+    func deleteData(num: Int, index: Int) -> Bool {
         var ret = false
-        
+        SwiftSpinner.show("Connecting to satellite...")
         let appDelegate: AppDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
         let context: NSManagedObjectContext = appDelegate.managedObjectContext
         let request = NSFetchRequest(entityName: entityName)
@@ -247,6 +248,9 @@ class moveiListViewController: UIViewController {
                 appDelegate.saveContext()
             }
             ret = true
+            //dataListを更新する
+            dataList.removeAtIndex(index)
+            movieLIstTable.reloadData()
         } catch let error as NSError {
             // エラー処理
             print("FETCH ERROR:\(error.localizedDescription)")

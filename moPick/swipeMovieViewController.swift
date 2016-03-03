@@ -15,10 +15,10 @@ import Alamofire
 import SwiftyJSON
 import CoreData
 import SwiftSpinner
+import LTMorphingLabel
 
 
-
-class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
+class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate, LTMorphingLabelDelegate {
     
     var swipeCount = 0
     var swipeListCount = 0
@@ -32,6 +32,12 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
     var readJsonDataDict:NSDictionary = ["":""]
     var readJsonDataArray:[NSDictionary] = []
     var swipeView = UIView()
+
+    @IBOutlet weak var charaCommentLabel: LTMorphingLabel!
+    
+    @IBOutlet weak var charaImage: UIImageView!
+    var imageList = ["funtasy.png","love.png","adventure.png","human.png","suspense.png","anumals.png"]
+    
     
     
     override func viewDidLoad() {
@@ -39,9 +45,11 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
     }
     
     override func viewWillAppear(animated: Bool) {
-        
-        
-        createViewPage()
+        var chosenGenre = appDelegate.chosenGenre
+        for var i = 0; i<5; i++ {
+            createViewPage()
+        }
+        charaImage.image = UIImage(named: imageList[chosenGenre])
     }
     @IBAction func moreMovie(sender: UIButton) {
         
@@ -59,7 +67,7 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
         options.nopeText = "Later"
         options.nopeColor = UIColor.lightGrayColor()
         
-        var view = MDCSwipeToChooseView(frame: CGRectMake(0,150,300,300), options: options)
+        var view = MDCSwipeToChooseView(frame: CGRectMake(10,200,300,300), options: options)
         return view
     }
     
@@ -74,7 +82,7 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
         let offsetInt = (arc4random() % 4)
         
         
-        //ファンタジー/恋愛/冒険/感動
+        //ファンタジー/恋愛/冒険/感動/サスペンス/自然
         var chosenGenre = appDelegate.chosenGenre
         swipeView.hidden = true
         SwiftSpinner.show("Connecting to satellite...")
@@ -93,7 +101,7 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
                 var title = String(json["results"][targetInt]["trackName"])
                 var story = String(json["results"][targetInt]["longDescription"])
                 
-                self.swipeView.tag = self.swipeListCount
+                
                 self.readJsonDataDict = [
                     "num":self.swipeListCount,
                     "name":movieTitle,
@@ -109,18 +117,20 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
                 storyView.text = story
                 storyView.backgroundColor = UIColor.whiteColor()
                 storyView.frame = CGRectMake(0, 120, 300, 200)
-                print(story)
+               
                 
                 let swipeView1 = self.createSwipeView()
                 imageView1.frame = CGRectMake(120, 50, 80, 80)
                 
+                swipeView1.tag = self.swipeListCount
                 swipeView1.addSubview(imageView1)
                 swipeView1.addSubview(titleView)
                 swipeView1.addSubview(storyView)
                 self.view.addSubview(swipeView1)
-
+                print(self.swipeListCount)
                 //この番号とnumが一致するものを探す
                 self.swipeListCount++
+                
                 self.readJsonDataArray.append(self.readJsonDataDict)
             }
             self.swipeView.hidden = false
@@ -130,7 +140,6 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
     }
     
     @IBAction func tapBtn(sender: UIButton) {
-        alertUp()
     }
     
     
@@ -138,9 +147,11 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
         
         if (direction == MDCSwipeDirection.Left) {
             print("Later")
+            charaCommentLabel.text = "これはどうかな？"
         } else {
             print("Like")
-    
+            charaCommentLabel.text = "つぎはこれがオススメ!"
+            print(view.tag)
             for var i = 0; i < self.readJsonDataArray.count; i++ {
                 if view.tag == self.readJsonDataArray[i]["num"] as! Int {
                     var movieTitle = self.readJsonDataArray[i]["name"] as! String
@@ -152,27 +163,6 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate {
         swipeCount++
     }
     
-    func alertUp() {
-        let alert = UIAlertController(
-            title: "選んだ映画はこちらです",
-            message: "映画を選びました!",
-            preferredStyle: .Alert
-        )
-        
-        alert.addAction(UIAlertAction(
-            title: "ジャンルを変更",
-            style: .Default,
-            handler: {action in self.backToCooseGenre()}
-            ))
-        
-        alert.addAction(UIAlertAction(
-            title: "リストで確認",
-            style: .Default,
-            handler: {action in self.moveMovieList()}
-            ))
-        
-        presentViewController(alert, animated: true,completion:nil)
-    }
     
     func moveMovieList() {
         self.performSegueWithIdentifier("showMovieList", sender: nil)
