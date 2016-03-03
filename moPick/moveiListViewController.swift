@@ -29,6 +29,7 @@ class moveiListViewController: UIViewController {
     var flag = "flag"
     var url = "imgURL"
     
+    
    
     var getList:[NSDictionary] = []
     var getCoreData:[NSDictionary] = []
@@ -43,8 +44,6 @@ class moveiListViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        navigationItem.leftBarButtonItem = editButtonItem()
-        
         self.dataList = self.readData() as! [NSDictionary]
         for var i = 0; i < dataList.count; i++ {
             checkMarks.append(false)
@@ -57,6 +56,7 @@ class moveiListViewController: UIViewController {
     
     @IBAction func returnGenreBtn(sender: UIButton) {
     }
+    
     
 
     
@@ -99,6 +99,29 @@ class moveiListViewController: UIViewController {
         }
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
+    
+    
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        cell.backgroundColor = UIColor.grayColor()
+        
+        // アニメーションの作成
+        let animation = CABasicAnimation(keyPath: "transform.scale")
+        animation.fromValue = 0.0
+        animation.toValue = 1.0
+        animation.duration = 1.0
+        animation.beginTime = CACurrentMediaTime() + 0.3
+        
+        // アニメーションが開始される前からアニメーション開始地点に表示
+        animation.fillMode = kCAFillModeBackwards
+        
+        // セルのLayerにアニメーションを追加
+        cell.layer.addAnimation(animation, forKey: nil)
+        
+        // アニメーション終了後は元のサイズになるようにする
+        cell.layer.transform = CATransform3DIdentity
+    }
+    
+    
     override func setEditing(editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         //tableView.editing = editing

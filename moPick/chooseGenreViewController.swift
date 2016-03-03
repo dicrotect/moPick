@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import LTMorphingLabel
 
-class chooseGenreViewController: UIViewController {
+class chooseGenreViewController: UIViewController, LTMorphingLabelDelegate {
 
     
     @IBOutlet weak var loveIconBtn: UIButton!
@@ -17,13 +18,15 @@ class chooseGenreViewController: UIViewController {
     @IBOutlet weak var funtasyIconBtn: UIButton!
     @IBOutlet weak var backGroundImage: UIImageView!
     
-    @IBOutlet weak var userlabel: UILabel!
+    @IBOutlet weak var mopickTitle: LTMorphingLabel!
+    
     var chooseGenre = Int()
     
     var appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        mopickTitle.text = "welcome!"
     }
     
     override func viewWillAppear(animated: Bool) {

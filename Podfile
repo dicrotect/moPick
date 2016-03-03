@@ -9,4 +9,5 @@ pod 'Alamofire'
 pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
 pod 'MDCSwipeToChoose'
 pod "SwiftSpinner"
+pod 'LTMorphingLabel'
 

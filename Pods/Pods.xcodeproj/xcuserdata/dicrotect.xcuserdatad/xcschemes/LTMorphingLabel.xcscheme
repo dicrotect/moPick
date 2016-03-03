@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'AD59C11C40BD1190CB8B51F3'
-               BlueprintName = 'MDCSwipeToChoose'
+               BlueprintIdentifier = '9CEFB9FBF7E3D0C997E78985'
+               BlueprintName = 'LTMorphingLabel'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'MDCSwipeToChoose.framework'>
+               BuildableName = 'LTMorphingLabel.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

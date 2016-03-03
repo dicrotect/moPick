@@ -1,11 +1,13 @@
 PODS:
   - Alamofire (3.2.0)
+  - LTMorphingLabel (0.1.1)
   - MDCSwipeToChoose (0.2.3)
   - SwiftSpinner (0.8.0)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
   - Alamofire
+  - LTMorphingLabel
   - MDCSwipeToChoose
   - SwiftSpinner
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
@@ -21,6 +23,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: 4da478599fccddff361205c8929333d7fe18dceb
+  LTMorphingLabel: dfc40f43a0dcf81867b1f29431f34e861a5f1b35
   MDCSwipeToChoose: 56239d98b4558c66e7c3c9069482befd26092270
   SwiftSpinner: 11c2c5ec7443d92f3026d3067ca8a91d4adef13f
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a

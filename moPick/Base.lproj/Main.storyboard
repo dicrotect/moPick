@@ -83,6 +83,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="326" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
+                                        <gestureRecognizers/>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -183,6 +184,12 @@
                                     <segue destination="rZn-x3-3gm" kind="show" identifier="fantasySegue" id="xuk-4N-MrK"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="mopick" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pz6-KY-9MZ" customClass="LTMorphingLabel" customModule="LTMorphingLabel">
+                                <rect key="frame" x="65" y="132" width="185" height="53"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="38"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -193,6 +200,7 @@
                         <outlet property="funtasyIconBtn" destination="H5j-SL-plB" id="VNq-Jl-52R"/>
                         <outlet property="humanIconBtn" destination="19H-8E-dBm" id="j1y-Pv-otW"/>
                         <outlet property="loveIconBtn" destination="s1k-hJ-5gd" id="DLt-4k-e57"/>
+                        <outlet property="mopickTitle" destination="Pz6-KY-9MZ" id="gvp-CQ-YtF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cj0-aF-Hgt" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -228,7 +236,7 @@
         <image name="theater.jpg" width="1200" height="800"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="D5R-N8-wAs"/>
+        <segue reference="SgI-Fb-MsF"/>
         <segue reference="dDk-ek-hmp"/>
     </inferredMetricsTieBreakers>
 </document>
