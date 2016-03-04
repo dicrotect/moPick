@@ -17,6 +17,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="theater.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="zXF-Xw-WXM">
+                                <rect key="frame" x="-5" y="0.0" width="325" height="568"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nBx-nf-kfJ">
                                 <rect key="frame" x="137" y="289" width="36" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -256,8 +259,8 @@
         <image name="theater.jpg" width="1200" height="800"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dDk-ek-hmp"/>
+        <segue reference="SgI-Fb-MsF"/>
         <segue reference="s0K-4H-sgW"/>
-        <segue reference="P7n-hQ-CcV"/>
+        <segue reference="dDk-ek-hmp"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -52,7 +52,9 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate, LTMo
         charaImage.image = UIImage(named: imageList[chosenGenre])
     }
     @IBAction func moreMovie(sender: UIButton) {
-        
+        for var i = 0; i<5; i++ {
+            createViewPage()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -79,8 +81,9 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate, LTMo
         let targetSecondString:String = String(targetSecondInt)
         let targetString = targetSecondString + targetFirstString
         let targetInt:Int = Int(targetString)!
-        let offsetInt = (arc4random() % 4)
-        
+        let offsetInt = (arc4random() % 2)
+        print(targetInt)
+        print(offsetInt)
         
         //ファンタジー/恋愛/冒険/感動/サスペンス/自然
         var chosenGenre = appDelegate.chosenGenre
@@ -151,7 +154,6 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate, LTMo
         } else {
             print("Like")
             charaCommentLabel.text = "つぎはこれがオススメ!"
-            print(view.tag)
             for var i = 0; i < self.readJsonDataArray.count; i++ {
                 if view.tag == self.readJsonDataArray[i]["num"] as! Int {
                     var movieTitle = self.readJsonDataArray[i]["name"] as! String

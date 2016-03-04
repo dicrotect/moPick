@@ -30,19 +30,14 @@ class moveiListViewController: UIViewController  {
     var flag = "flag"
     var url = "imgURL"
     let async = AsyncKit<String, NSError>()
-    
-    
-   
     var getList:[NSDictionary] = []
     var getCoreData:[NSDictionary] = []
-   
     var dataList:[NSDictionary] = []
     
     var checkMarks:[Bool]  = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //SwiftSpinner.show("Connecting to satellite...")
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -51,35 +46,21 @@ class moveiListViewController: UIViewController  {
             { done in
                 SwiftSpinner.show("Connecting to satellite...")
                     done(.Success("one"))
-                
             }, { done in
                 self.dataList = self.readData() as! [NSDictionary]
                 for var i = 0; i < self.dataList.count; i++ {
                     self.checkMarks.append(false)
-                }
-                
-                    done(.Success("two"))
-                
+                }; done(.Success("two"))
             }
             ]) { result in
                 switch result {
                 case .Success(let objects):
-                    print(objects)
-                    SwiftSpinner.hide()
+                SwiftSpinner.hide()
                 case .Failure(let error):
-                    print(error)
+                print(error)
                 }
+            }
         }
-        
-        
-        
-        
-//        self.dataList = self.readData() as! [NSDictionary]
-//        for var i = 0; i < dataList.count; i++ {
-//            checkMarks.append(false)
-//        }
-        
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -108,8 +89,6 @@ class moveiListViewController: UIViewController  {
         let backgroundView = UIView()
         backgroundView.backgroundColor = UIColor.whiteColor()
         cell.selectedBackgroundView = backgroundView
-
-    
         let jsonURL = self.dataList[indexPath.row]["image"] as! String
         let imageURL = NSURL(string:jsonURL as! String)
         let imageData = NSData(contentsOfURL:imageURL!)
@@ -160,6 +139,7 @@ class moveiListViewController: UIViewController  {
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         var num = self.dataList[indexPath.row]["num"] as! Int
+        print(num)
         deleteData(num,index: indexPath.row)
     }
    
@@ -171,6 +151,7 @@ class moveiListViewController: UIViewController  {
         
         do {
             let results : Array = try context.executeFetchRequest(request)
+            getList = []
             if (results.count > 0 ) {
                 for i in 0..<results.count {
                     let obj = results[i] as! NSManagedObject
@@ -199,6 +180,7 @@ class moveiListViewController: UIViewController  {
                     }
                     getCoreData = getList.reverse()
                 }
+                print(getCoreData)
             }
         } catch let error as NSError {
             print("READ ERROR:\(error.localizedDescription)")
@@ -218,8 +200,10 @@ class moveiListViewController: UIViewController  {
             let results: Array = try context.executeFetchRequest(request)
             let obj = results[num] as! NSManagedObject
             let index = obj.valueForKey(flag) as! Int
-            obj.setValue(1, forKey: flag)
-            appDelegate.saveContext()
+            if index == 0 {
+                obj.setValue(1, forKey: flag)
+                appDelegate.saveContext()
+            }
             ret = true
         } catch let error as NSError {
             // エラー処理
@@ -241,16 +225,20 @@ class moveiListViewController: UIViewController  {
             let results : Array = try context.executeFetchRequest(request)
             if (results.count > 0 ) {
                 // 見つかったら削除
+                
                 let obj = results[num] as! NSManagedObject
+                
                 let txt = obj.valueForKey(movie) as! String
                 print("DELETE \(txt)")
                 context.deleteObject(obj)
                 appDelegate.saveContext()
             }
             ret = true
-            //dataListを更新する
             dataList.removeAtIndex(index)
             movieLIstTable.reloadData()
+            readData()
+            self.dataList = self.readData() as! [NSDictionary]
+            SwiftSpinner.hide()
         } catch let error as NSError {
             // エラー処理
             print("FETCH ERROR:\(error.localizedDescription)")
