@@ -16,6 +16,7 @@ import SwiftyJSON
 import CoreData
 import SwiftSpinner
 import LTMorphingLabel
+import AsyncKit
 
 
 class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate, LTMorphingLabelDelegate {
@@ -33,12 +34,13 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate, LTMo
     var readJsonDataArray:[NSDictionary] = []
     var swipeView = UIView()
 
+    @IBOutlet weak var moreBtn: UIButton!
+    @IBOutlet weak var topBtn: UIButton!
+    
     @IBOutlet weak var charaCommentLabel: LTMorphingLabel!
     
     @IBOutlet weak var charaImage: UIImageView!
-    var imageList = ["funtasy.png","love.png","adventure.png","human.png","suspense.png","anumals.png"]
-    
-    
+    var imageList = ["funtasy.png","love.png","adventure.png","human.png","suspense.png","animal.png"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,14 +64,17 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate, LTMo
     }
     
     func createSwipeView() -> UIView {
+        
         let options = MDCSwipeToChooseViewOptions()
+        
         options.delegate = self
         options.likedText = "Like"
-        options.likedColor = UIColor.greenColor()
+        options.likedColor = UIColor.redColor()
         options.nopeText = "Later"
         options.nopeColor = UIColor.lightGrayColor()
         
-        var view = MDCSwipeToChooseView(frame: CGRectMake(10,200,300,300), options: options)
+        var view = MDCSwipeToChooseView(frame: CGRectMake(10,150,300,350), options: options)
+        swipeView.bringSubviewToFront(view)
         return view
     }
     
@@ -81,68 +86,72 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate, LTMo
         let targetSecondString:String = String(targetSecondInt)
         let targetString = targetSecondString + targetFirstString
         let targetInt:Int = Int(targetString)!
-        let offsetInt = (arc4random() % 2)
-        print(targetInt)
-        print(offsetInt)
+        
         
         //ファンタジー/恋愛/冒険/感動/サスペンス/自然
         var chosenGenre = appDelegate.chosenGenre
         swipeView.hidden = true
         SwiftSpinner.show("Connecting to satellite...")
         var genreURL =
-        ["%E9%AD%94%E6%B3%95", "%E5%88%9D%E6%81%8B", "%E5%A4%A7%E5%86%92%E9%99%BA","%E6%84%9F%E5%8B%95","%E6%8E%A2%E5%81%B5","%E8%87%AA%E7%84%B6" ]
-        let jsonURL = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/wa/wsSearch?term=\(genreURL[chosenGenre])&media=movie&entity=movie&attribute=descriptionTerm&offset=\(offsetInt)&country=jp"
+        ["%E9%AD%94%E6%B3%95", "%E5%88%9D%E6%81%8B", "%E5%A4%A7%E5%86%92%E9%99%BA","%E6%84%9F%E5%8B%95","%E3%82%B5%E3%82%B9%E3%83%9A%E3%83%B3%E3%82%B9","%E5%A4%A7%E8%87%AA%E7%84%B6" ]
+        let jsonURL = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/wa/wsSearch?term=\(genreURL[chosenGenre])&media=movie&entity=movie&attribute=descriptionTerm&country=jp"
+        
+        
         
         Alamofire.request(.GET, jsonURL,parameters: nil, encoding: .JSON ).responseJSON{(response) in
-            if(response.result.isSuccess){
+            if(response.result.isSuccess) {
+                self.topBtn.hidden = true
                 let json = JSON(response.result.value!)
                 let movieImageURL:String = String(json["results"][targetInt]["artworkUrl100"])
-                let movieTitle:String = String(json["results"][targetInt]["trackName"])
+                let movieTitle:String = String(json["results"][targetInt]["trackCensoredName"])
                 let imageURL = NSURL(string:movieImageURL as! String)
                 let imageData = NSData(contentsOfURL:imageURL!)
                 let image = UIImage(data: imageData!)
-                var title = String(json["results"][targetInt]["trackName"])
+                var title = String(json["results"][targetInt]["trackCensoredName"])
                 var story = String(json["results"][targetInt]["longDescription"])
-                
                 
                 self.readJsonDataDict = [
                     "num":self.swipeListCount,
                     "name":movieTitle,
                     "image":movieImageURL
                 ]
-                let imageView1 = UIImageView(image:image)
+                
                 let titleView = UILabel()
                 titleView.text = title
-                titleView.backgroundColor = UIColor.greenColor()
+                titleView.textAlignment = NSTextAlignment.Center
+                titleView.backgroundColor = UIColor.redColor()
                 titleView.frame = CGRectMake(0,0, 300, 50)
+                
+                let imageView1 = UIImageView(image:image)
+                let swipeView1 = self.createSwipeView()
+                imageView1.frame = CGRectMake(100, 50, 110, 110)
                 
                 let storyView = UITextView()
                 storyView.text = story
+                storyView.editable = false
                 storyView.backgroundColor = UIColor.whiteColor()
-                storyView.frame = CGRectMake(0, 120, 300, 200)
-               
-                
-                let swipeView1 = self.createSwipeView()
-                imageView1.frame = CGRectMake(120, 50, 80, 80)
+                storyView.frame = CGRectMake(0, 160, 300, 200)
                 
                 swipeView1.tag = self.swipeListCount
                 swipeView1.addSubview(imageView1)
                 swipeView1.addSubview(titleView)
                 swipeView1.addSubview(storyView)
                 self.view.addSubview(swipeView1)
-                print(self.swipeListCount)
                 //この番号とnumが一致するものを探す
                 self.swipeListCount++
-                
                 self.readJsonDataArray.append(self.readJsonDataDict)
+                self.swipeView.hidden = false
+                SwiftSpinner.hide()
+                
+            } else {
+                self.charaCommentLabel.text = "インターネットに接続ください"
+                self.moreBtn.hidden = true
+                SwiftSpinner.hide()
+                
             }
-            self.swipeView.hidden = false
-            SwiftSpinner.hide()
+            
         }
         dispatch_resume(self.queue)
-    }
-    
-    @IBAction func tapBtn(sender: UIButton) {
     }
     
     
@@ -164,13 +173,25 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate, LTMo
         }
         swipeCount++
     }
-    
-    
-    func moveMovieList() {
-        self.performSegueWithIdentifier("showMovieList", sender: nil)
-    }
-    func backToCooseGenre() {
-        self.performSegueWithIdentifier("backToChooseGenre", sender: nil)
+    @IBAction func moveToMovieList(sender: UIButton) {
+        
+        AsyncKit<String, NSError>().parallel([
+            { done in
+                SwiftSpinner.show("Connecting to satellite...")
+                done(.Success("one"))
+            }, { done in
+                
+                self.performSegueWithIdentifier("chooseToList", sender: nil)
+                done(.Success("two"))
+            }
+            ]) { result in
+                switch result {
+                case .Success(let objects):
+                    SwiftSpinner.hide()
+                case .Failure(let error):
+                    print(error)
+            }
+        }
     }
     
     func writeData(txtMovie: String, txtURL: String) -> Bool{
