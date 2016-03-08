@@ -33,7 +33,7 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate, LTMo
     var readJsonDataDict:NSDictionary = ["":""]
     var readJsonDataArray:[NSDictionary] = []
     var swipeView = UIView()
-
+    
     @IBOutlet weak var moreBtn: UIButton!
     @IBOutlet weak var topBtn: UIButton!
     
@@ -46,7 +46,9 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate, LTMo
         super.viewDidLoad()
     }
     
+    
     override func viewWillAppear(animated: Bool) {
+        
         var chosenGenre = appDelegate.chosenGenre
         for var i = 0; i<5; i++ {
             createViewPage()
@@ -58,6 +60,7 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate, LTMo
             createViewPage()
         }
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -73,16 +76,65 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate, LTMo
         options.nopeText = "Later"
         options.nopeColor = UIColor.lightGrayColor()
         
-        var view = MDCSwipeToChooseView(frame: CGRectMake(10,150,300,350), options: options)
-        swipeView.bringSubviewToFront(view)
-        return view
+        let aView = MDCSwipeToChooseView(frame: self.view.frame, options : options)
+        aView.translatesAutoresizingMaskIntoConstraints = false
+        // 制約をつける前にaddしなければならない
+        self.view.addSubview(aView)
+        
+        // width の制約
+        let constraintWidth = NSLayoutConstraint(
+            item: aView,
+            attribute: .Width,
+            relatedBy: .Equal,
+            toItem: self.view,
+            attribute: .Width,
+            multiplier: 1.0 / 3.0,
+            constant: 160
+        )
+        // height の制約
+        let constraintHeight = NSLayoutConstraint(
+            item: aView,
+            attribute: .Height,
+            relatedBy: .Equal,
+            toItem: self.view,
+            attribute: .Height,
+            multiplier: 1.0 / 4.0,
+            constant: 160
+        )
+        // X中央寄せ
+        let constraintHorizontal = NSLayoutConstraint(
+            item: aView,
+            attribute: .CenterX,
+            relatedBy: .Equal,
+            toItem: self.view,
+            attribute: .CenterX,
+            multiplier: 1.0,
+            constant: 0
+        )
+        // Y中央寄せ
+        let constraintVertical = NSLayoutConstraint(
+            item: aView,
+            attribute: .CenterY,
+            relatedBy: .Equal,
+            toItem: self.view,
+            attribute: .CenterY,
+            multiplier: 1.0,
+            constant: 0
+        )
+        
+        let constraints = [constraintWidth, constraintHeight, constraintHorizontal, constraintVertical]
+        // 制約をつける
+        self.view.addConstraints(constraints)
+        swipeView.bringSubviewToFront(aView)
+        
+        return aView
     }
     
     func createViewPage()-> Void {
-    
+        
         let targetFirstInt = (arc4random() % 9)
         let targetFirstString:String = String(targetFirstInt)
-        let targetSecondInt = (arc4random() % 5)
+        let targetSecondInt = (arc4random() % 4)
         let targetSecondString:String = String(targetSecondInt)
         let targetString = targetSecondString + targetFirstString
         let targetInt:Int = Int(targetString)!
@@ -106,46 +158,54 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate, LTMo
                 let movieTitle:String = String(json["results"][targetInt]["trackCensoredName"])
                 let imageURL = NSURL(string:movieImageURL as! String)
                 let imageData = NSData(contentsOfURL:imageURL!)
-                let image = UIImage(data: imageData!)
-                var title = String(json["results"][targetInt]["trackCensoredName"])
-                var story = String(json["results"][targetInt]["longDescription"])
-                
-                self.readJsonDataDict = [
-                    "num":self.swipeListCount,
-                    "name":movieTitle,
-                    "image":movieImageURL
-                ]
-                
-                let titleView = UILabel()
-                titleView.text = title
-                titleView.textAlignment = NSTextAlignment.Center
-                titleView.backgroundColor = UIColor.redColor()
-                titleView.frame = CGRectMake(0,0, 300, 50)
-                
-                let imageView1 = UIImageView(image:image)
-                let swipeView1 = self.createSwipeView()
-                imageView1.frame = CGRectMake(100, 50, 110, 110)
-                
-                let storyView = UITextView()
-                storyView.text = story
-                storyView.editable = false
-                storyView.backgroundColor = UIColor.whiteColor()
-                storyView.frame = CGRectMake(0, 160, 300, 200)
-                
-                swipeView1.tag = self.swipeListCount
-                swipeView1.addSubview(imageView1)
-                swipeView1.addSubview(titleView)
-                swipeView1.addSubview(storyView)
-                self.view.addSubview(swipeView1)
-                //この番号とnumが一致するものを探す
-                self.swipeListCount++
-                self.readJsonDataArray.append(self.readJsonDataDict)
-                self.swipeView.hidden = false
-                SwiftSpinner.hide()
-                
+                if imageData != nil {
+                    let image = UIImage(data: imageData!)
+                    var title = String(json["results"][targetInt]["trackCensoredName"])
+                    var story = String(json["results"][targetInt]["longDescription"])
+                    
+                    self.readJsonDataDict = [
+                        "num":self.swipeListCount,
+                        "name":movieTitle,
+                        "image":movieImageURL
+                    ]
+                    
+                    let titleView = UILabel()
+                    titleView.text = title
+                    titleView.textAlignment = NSTextAlignment.Center
+                    titleView.textColor = UIColor.whiteColor()
+                    titleView.backgroundColor = UIColor.redColor()
+                    titleView.frame = CGRectMake(0,0, 300, 50)
+                    
+                    let imageView1 = UIImageView(image:image)
+                    imageView1.frame = CGRectMake(80, 50, 110, 110)
+                    let storyView = UITextView()
+                    
+                    storyView.text = story
+                    storyView.editable = false
+                    storyView.backgroundColor = UIColor.whiteColor()
+                    storyView.frame = CGRectMake(0, 160, 300, 200)
+                    
+                    let swipeView1 = self.createSwipeView()
+                    swipeView1.tag = self.swipeListCount
+                    swipeView1.addSubview(imageView1)
+                    swipeView1.addSubview(titleView)
+                    swipeView1.addSubview(storyView)
+                    self.view.addSubview(swipeView1)
+                    //この番号とnumが一致するものを探す
+                    self.swipeListCount++
+                    self.readJsonDataArray.append(self.readJsonDataDict)
+                    self.swipeView.hidden = false
+                    SwiftSpinner.hide()
+                } else {
+                    self.charaCommentLabel.text = "予期せぬエラーが発生しました"
+                    self.moreBtn.hidden = true
+                    self.topBtn.hidden = false
+                    SwiftSpinner.hide()
+                }
             } else {
                 self.charaCommentLabel.text = "インターネットに接続ください"
                 self.moreBtn.hidden = true
+                self.topBtn.hidden = false
                 SwiftSpinner.hide()
                 
             }
@@ -173,15 +233,16 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate, LTMo
         }
         swipeCount++
     }
+    
+    
     @IBAction func moveToMovieList(sender: UIButton) {
-        
         AsyncKit<String, NSError>().parallel([
             { done in
                 SwiftSpinner.show("Connecting to satellite...")
                 done(.Success("one"))
             }, { done in
                 
-                self.performSegueWithIdentifier("chooseToList", sender: nil)
+                self.performSegueWithIdentifier("goToList", sender: nil)
                 done(.Success("two"))
             }
             ]) { result in
@@ -190,8 +251,9 @@ class swipeMovieViewController: UIViewController, MDCSwipeToChooseDelegate, LTMo
                     SwiftSpinner.hide()
                 case .Failure(let error):
                     print(error)
-            }
+                }
         }
+        
     }
     
     func writeData(txtMovie: String, txtURL: String) -> Bool{

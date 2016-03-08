@@ -42,8 +42,6 @@ class moveiListViewController: UIViewController  {
     }
     
     override func viewWillAppear(animated: Bool) {
-        
-        
         self.dataList = self.readData() as! [NSDictionary]
         for var i = 0; i < self.dataList.count; i++ {
             self.checkMarks.append(false)
@@ -122,7 +120,6 @@ class moveiListViewController: UIViewController  {
                     print(error)
             }
         }
-        
     }
    
     func readData() -> NSArray {
